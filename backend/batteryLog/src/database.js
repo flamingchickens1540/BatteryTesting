@@ -11,5 +11,5 @@ const connection = mysql.createConnection({
 connection.connect();
  
 module.exports = {
-    query : connection.query
+  query : connection.query.bind(connection)
 };
