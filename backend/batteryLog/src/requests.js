@@ -4,7 +4,7 @@ const ID_RANGE = 500;
 function queryBattery(batteryId) {
     return new Promise(res => {
         database.query(`SELECT * FROM batteries WHERE id=${batteryId};`, (error, result, fields) => {
-            if (error) throw error;
+            if (error) return res(error);
 
             res(result[0])
         });
@@ -14,7 +14,7 @@ function queryBattery(batteryId) {
 function queryAddBattery(id, name, date) {
     return new Promise(res => {
         database.query(`INSERT INTO batteries VALUES(${id}, "${name}", DATE("${date}"), NULL, NULL)`, (error, result, fields) => {
-            if (error) throw error;
+            if (error) return res(error);
 
             res("Success");
         });
@@ -43,11 +43,11 @@ function queryBatteryIds() {
 
 module.exports = {
     get : {
-        "/battery" : async (req, res) => res.send(await queryBattery(req.query["battery-id"])),
-        "/batteryNames" : async (req, res) => res.send(await queryBatteryNames())
+        "/battery" : async req => await queryBattery(req.query["battery-id"]),
+        "/batteryNames" : queryBatteryNames
     },
     post : {
-        "/battery" : async (req, res) => {
+        "/battery" : async req => {
             const ids = await queryBatteryIds();
 
             let id;
@@ -58,7 +58,7 @@ module.exports = {
 
             const body = req.body;
 
-            res.send(await queryAddBattery(id, body.batteryName, body.batteryDate));
+            return await queryAddBattery(id, body.batteryName, body.batteryDate);
         }
     }
 }
