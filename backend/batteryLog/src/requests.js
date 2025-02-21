@@ -13,7 +13,7 @@ function queryBattery(batteryId) {
 
 function queryAddBattery(id, name, date) {
     return new Promise(res => {
-        database.query(`INSERT INTO batteries VALUES(${id}, "${name}", DATE(${date}), NULL, NULL)`, (error, result, fields) => {
+        database.query(`INSERT INTO batteries VALUES(${id}, "${name}", DATE("${date}"), NULL, NULL)`, (error, result, fields) => {
             if (error) console.error(error);
 
             res("Success");
