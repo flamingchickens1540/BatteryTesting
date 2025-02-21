@@ -11,7 +11,7 @@ module.exports = {
             database.query(`SELECT name FROM batteries;`, (error, result, fields) => res.send(result.map(data => data.name)));
         }
     },
-    put : {
+    post : {
         "/battery" : function(req, res) {
             const query = req.query;
 
