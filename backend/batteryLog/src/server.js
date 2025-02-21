@@ -11,7 +11,7 @@ Object.entries(require("./requests.js")).forEach(method => {
         requestMethod(request[0], async (req, res) => {
             const result = await request[1](req);
             console.log(result)
-            if(typeof result == Error) {
+            if(result instanceof Error) {
                 console.error(result);
                 return res.sendStatus(500);
             }
