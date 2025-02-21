@@ -5,40 +5,29 @@ const TIMESTAMPS_TABLE = "timestamps";
 const CODE_VERSION = 0;
 
 function getBatteryTests(batteryId) {
-    return new Promise(res => {
-        database.query(`SELECT * FROM ${TESTS_TABLE} WHERE batteryId=${batteryId};`, (error, result, fields) => {
-            if (error) {
-                console.error(error);
-                return res(undefined);
-            }
-
-            res(result);
-        });
-    });
+    return database.query(`SELECT * FROM ${TESTS_TABLE} WHERE batteryId=${batteryId};`, result => result);
 }
 
 function getTimestamps(testId) {
-    return new Promise(res => {
-        database.query(`SELECT * FROM ${TIMESTAMPS_TABLE} WHERE testId=${testId};`, (error, result, fields) => {
-            if (error) {
-                console.error(error);
-                return res(undefined);
-            }
+    return database.query(`SELECT * FROM ${TIMESTAMPS_TABLE} WHERE testId=${testId};`, result => result)
+}
 
-            res(result);
-        });
-    });
+function insertTimestamp(testId, time, voltage, current) {
+    return database.query(`INSERT INTO${TIMESTAMPS_TABLE} VALUES(${testId}, ${time}, ${voltage}, ${current})`, () => time);
 }
 
 function createTest(batteryId, time, name) {
-    return new Promise(res => {
-        database.query(`INSERT INTO ${TESTS_TABLE} VALUES(${batteryId}, ${time}, "${name}", FALSE, NULL, ${CODE_VERSION});`, (error, result, fields) => {
-            if (error) {
-                console.error(error);
-                return res(undefined);
-            }
-
-            res("Success");
-        });
-    });
+    return database.query(`INSERT INTO ${TESTS_TABLE} VALUES(${batteryId}, ${time}, "${name}", FALSE, NULL, ${CODE_VERSION});`, () => time);
 }
+
+function completeTest(testId) {
+    return database.query(`UPDATE ${TESTS_TABLE} SET success = TRUE WHERE startTime=${testId};`, () => time);
+} 
+
+module.exports = {
+    getBatteryTests,
+    getTimestamps,
+    insertTimestamp,
+    createTest,
+    completeTest
+};
