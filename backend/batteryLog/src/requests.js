@@ -4,7 +4,7 @@ const ID_RANGE = 500;
 function queryBattery(batteryId) {
     return new Promise(res => {
         database.query(`SELECT * FROM batteries WHERE id=${batteryId};`, (error, result, fields) => {
-            if (error) throw error;
+            if (error) console.error(error);
 
             res(result[0])
         });
@@ -13,8 +13,8 @@ function queryBattery(batteryId) {
 
 function queryAddBattery(id, name, date) {
     return new Promise(res => {
-        database.query(`INSERT INTO batteries VALUES(${id}, ${name}, DATE(${date}), NULL, NULL)`, (error, result, fields) => {
-            if (error) throw error;
+        database.query(`INSERT INTO batteries VALUES(${id}, "${name}", DATE(${date}), NULL, NULL)`, (error, result, fields) => {
+            if (error) console.error(error);
 
             res("Success");
         });
@@ -24,7 +24,7 @@ function queryAddBattery(id, name, date) {
 function queryBatteryNames() {
     return new Promise(res => {
         database.query(`SELECT name FROM batteries;`, (error, result, fields) => {
-            if (error) throw error;
+            if (error) console.error(error);
 
             res(result.map(data => data.name));
         });
@@ -34,7 +34,7 @@ function queryBatteryNames() {
 function queryBatteryIds() {
     return new Promise(res => {
         database.query(`SELECT id FROM batteries;`, (error, result, fields) => {
-            if (error) throw error;
+            if (error) console.error(error);
 
             res(result.map(data => data.id));
         });
