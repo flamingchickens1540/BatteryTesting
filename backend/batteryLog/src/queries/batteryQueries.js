@@ -20,10 +20,10 @@ function addBattery(id, name, date) {
         database.query(`INSERT INTO ${BATTERIES_TABLES} VALUES(${id}, "${name}", DATE("${date}"), NULL, NULL);`, (error, result, fields) => {
             if (error) {
                 console.error(error);
-                return res(undefined);
+                return res(error);
             }
 
-            res("Success");
+            res(id);
         });
     });
 }
