@@ -11,9 +11,9 @@ Object.entries(require("./requests.js")).forEach(method => {
         requestMethod(request[0], async (req, res) => {
             const result = await request[1](req);
 
-            if(typeof result == Error) {
+            if(result == undefined) {
                 res.status(500);
-                res.send("Error");
+                return res.send("Error");
             }
 
             res.send(result);
