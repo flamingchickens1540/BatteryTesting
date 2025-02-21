@@ -10,10 +10,10 @@ Object.entries(require("./requests.js")).forEach(method => {
     Object.entries(requests).forEach(request => {
         requestMethod(request[0], async (req, res) => {
             const result = await request[1](req);
-            console.log(result)
-            if(result == undefined) {
-                res.status(500);
-                return res.send("Error");
+            console.log(typeof result)
+            if(typeof result == Error) {
+                console.error(result);
+                return res.sendStatus(500);
             }
 
             res.send(result);

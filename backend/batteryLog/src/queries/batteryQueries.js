@@ -18,10 +18,8 @@ function getBattery(batteryId) {
 function addBattery(id, name, date) {
     return new Promise(res => {
         database.query(`INSERT INTO ${BATTERIES_TABLES} VALUES(${id}, "${name}", DATE("${date}"), NULL, NULL);`, (error, result, fields) => {
-            if (error) {
-                console.error(error);
+            if (error)
                 return res(error);
-            }
 
             res(id);
         });
