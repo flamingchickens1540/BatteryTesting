@@ -49,8 +49,7 @@
                 <section class="batterySection">
                     <h1>Battery</h1>
                     <div class="battery">
-                        <input list="batteryNames" name="batteryNameSelect" id="batteryNameSelect">
-                        <datalist id="batteryNames"></datalist>
+                        <select id="batteryNames"></select>
                         <button id="selectBattery">Select Battery</button>
                         <p>Battery Name: <span id="batteryName"></span></p>
                     </div>
@@ -79,10 +78,10 @@
             </div>
         </div>
 
-        <script src="loadTester/configs.js"></script>
-        <script src="loadTester/configEdit.js"></script>
-        <script src="loadTester/serialPort.js"></script>
-        <script src="loadTester/reading.js"></script>
+        <script src="configs.js"></script>
+        <script src="configEdit.js"></script>
+        <script src="serialPort.js"></script>
+        <script src="reading.js"></script>
         <script src="battery/battery.js"></script>
         <script src="battery/batteryData.js"></script>
         <script src="battery/loadTesting.js"></script>

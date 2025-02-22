@@ -1,5 +1,3 @@
-const CODE_VERSION = "1.0";
-
 {
     // The current test being done
     let test;

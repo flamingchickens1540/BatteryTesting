@@ -30,7 +30,7 @@ const BATTERY_DATA_ITEM = "batteryData";
 
     // Returns a battery of the given name
     const selectBattery = function() {
-        const name = document.querySelector("#batteryNameSelect").value;
+        const name = document.querySelector("#batteryNames").value;
 
         if(name == "LoadTestCommand") {
             document.querySelector("#command").style.display = "";

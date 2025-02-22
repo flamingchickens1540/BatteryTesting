@@ -28,7 +28,7 @@ async function completeTest(testId, timestamps) {
             return result;
     }
 
-    return await database.query(`UPDATE ${TESTS_TABLE} SET success = TRUE WHERE startTime=${testId};`, () => time);
+    return await database.query(`UPDATE ${TESTS_TABLE} SET success = 1 WHERE startTime=${testId};`, () => time);
 } 
 
 module.exports = {

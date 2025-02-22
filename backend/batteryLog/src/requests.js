@@ -1,11 +1,13 @@
 const dbBatteryQueries = require("./queries/batteryQueries.js");
+const dbTestsQueries = require("./queries/testQueries.js");
 const ID_RANGE = 500;
 
 module.exports = {
     get : {
-        "/battery" : async req => await dbBatteryQueries.getBattery(req.query["battery-id"]),
+        "/battery" : req => dbBatteryQueries.getBattery(req.query["battery-id"]),
         "/battery/all" : dbBatteryQueries.getBatteries,
-        "/capacities" : dbBatteryQueries.getBatteryCapacities
+        "/battery/capacities" : dbBatteryQueries.getBatteryCapacities,
+        "/tests" : req => dbTestsQueries.getBatteryTests(req.query["battery-id"])
     },
     post : {
         "/battery" : async req => {
@@ -21,6 +23,11 @@ module.exports = {
 
             return await dbBatteryQueries.addBattery(id, body.batteryName, body.batteryDate);
         },
-        "/removeBattery" : async req => await dbBatteryQueries.removeBattery(req.query["battery-id"])
+        "/battery/remove" : dbBatteryQueries.removeBattery(req.query["battery-id"]),
+        "/test/create" : req => {
+            const body = req.body;
+            
+            return dbTestsQueries.createTest(body.batteryId, body.time, body.name);
+        }
     }
 }
