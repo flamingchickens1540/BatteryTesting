@@ -1,13 +1,12 @@
 {
     // JSON of battery names as keys, ids as values.
-    const batteryList = localStorage.getItem("batteryList") ?? {};
+    let batteryList;
 
-    function getBatteries() {
-        
-        return Object.keys(batteryList);
+    async function init() {
+        batteryList = (await fetch("/BatteryTestingAPI/battery/all", {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json())).batteries;
     }
 
-    function addBattery() {
+    function getBatteries() {
         
     }
 }

@@ -3,15 +3,15 @@ const database = require("../database.js");
 const BATTERIES_TABLES = "Batteries";
 
 function getBattery(batteryId) {
-    return database.query(`SELECT * FROM ${BATTERIES_TABLES} WHERE id=${batteryId};`, result => result[0]);
+    return database.query(`SELECT * FROM ${BATTERIES_TABLES} WHERE id=${Number(batteryId)};`, result => result[0]);
 }
 
 function addBattery(id, name, date) {
-    return database.query(`INSERT INTO ${BATTERIES_TABLES} (id, name, date) VALUES(${id}, "${name}", DATE("${date}"));`, () => id);
+    return database.query(`INSERT INTO ${BATTERIES_TABLES} (id, name, date) VALUES(${Number(id)}, "${name.replaceAll('"', '')}", DATE("${date.replaceAll('"', '')}"));`, () => id);
 }
 
 function removeBattery(id) {
-    return database.query(`DELETE FROM ${BATTERIES_TABLES} WHERE id=${id};`, () => id);
+    return database.query(`DELETE FROM ${BATTERIES_TABLES} WHERE id=${Number(id)};`, () => id);
 }
 
 function getBatteries() {
@@ -29,7 +29,7 @@ function getBatteryCapacities() {
 }
 
 function setCapacity(id, capacity) {
-    return database.query(`UPDATE ${BATTERIES_TABLES} SET capacity = ${capacity} WHERE id = ${id}`, () => "Success");
+    return database.query(`UPDATE ${BATTERIES_TABLES} SET capacity = ${Number(capacity)} WHERE id = ${Number(id)}`, () => "Success");
 }
 
 module.exports = {

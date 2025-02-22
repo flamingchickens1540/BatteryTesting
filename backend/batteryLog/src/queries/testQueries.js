@@ -5,19 +5,19 @@ const TIMESTAMPS_TABLE = "Timestamps";
 const CODE_VERSION = 0;
 
 function getBatteryTests(batteryId) {
-    return database.query(`SELECT * FROM ${TESTS_TABLE} WHERE batteryId=${batteryId};`, result => result);
+    return database.query(`SELECT * FROM ${TESTS_TABLE} WHERE batteryId=${Number(batteryId)};`, result => result);
 }
 
 function getTimestamps(testId) {
-    return database.query(`SELECT * FROM ${TIMESTAMPS_TABLE} WHERE testId=${testId};`, result => result)
+    return database.query(`SELECT * FROM ${TIMESTAMPS_TABLE} WHERE testId=${Number(testId)};`, result => result)
 }
 
 function insertTimestamp(testId, time, voltage, current) {
-    return database.query(`INSERT INTO${TIMESTAMPS_TABLE} VALUES(${testId}, ${time}, ${voltage}, ${current})`, () => time);
+    return database.query(`INSERT INTO${TIMESTAMPS_TABLE} VALUES(${Number(testId)}, ${Number(time)}, ${Number(voltage)}, ${Number(current)})`, () => time);
 }
 
 function createTest(batteryId, time, name) {
-    return database.query(`INSERT INTO ${TESTS_TABLE} (batteryId, startTime, name, codeVersion) VALUES(${batteryId}, ${time}, "${name}", ${CODE_VERSION});`, () => time);
+    return database.query(`INSERT INTO ${TESTS_TABLE} (batteryId, startTime, name, codeVersion) VALUES(${Number(batteryId)}, ${Number(time)}, "${name.replaceAll('"', '')}", ${CODE_VERSION});`, () => time);
 }
 
 async function completeTest(testId, timestamps) {
@@ -28,7 +28,7 @@ async function completeTest(testId, timestamps) {
             return result;
     }
 
-    return await database.query(`UPDATE ${TESTS_TABLE} SET success = 1 WHERE startTime=${testId};`, () => time);
+    return await database.query(`UPDATE ${TESTS_TABLE} SET success = 1 WHERE startTime=${Number(testId)};`, () => time);
 } 
 
 module.exports = {
