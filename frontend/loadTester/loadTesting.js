@@ -1,7 +1,4 @@
 {
-    // The current test being done
-    let test;
-
     // Set the configurations to the load tester
     const setupConfigs = async function() {
         const mode = getLoadTestingConfig("mode");
@@ -32,79 +29,28 @@
     async function testBattery() {
 
         document.querySelector("#startTest").disabled = true;
-
-        test = {
-            name : new Date().toUTCString(),
-            // How data is collected matters to what capacity we get. We should store the code version to know how the data was collected. 
-            codeVersion: CODE_VERSION,
-            startTime : Date.now(),
-            idleVoltage : (await getNextReading()).voltage,
-            drainDuration : null,
-            capacity : null,
-            voltageMax : null,
-            voltageMin : null,
-            currentMax : null,
-            currentMin : null,
-            testingSuccessful : false,
-            timestamps: []
-        };
+        
+        createTest(new Date().toUTCString(), Date.now(), (await getNextReading()).voltage);
 
         setupConfigs();
 
-        loopBatteryTest();
-    }
-
-    const loopBatteryTest = async function() {
+        const timestamps = [];
         while(true) {
             await new Promise(res => setTimeout(res, READING_INTERVAL_MILLIS));
 
             const readings = await getNextReading();
 
             if(readings.current <= 0.1) {
-                finishBatteryTesting(true);
-                return;
+                logTest(true);
+                return finishBatteryTesting();
             }
 
-            test.timestamps.push(readings);
+            timestamps.push(readings);
         }
     }
 
-    const processTest = function() {
-        let wattMillis = 0;
-        let currentMax = -Infinity;
-        let currentMin = Infinity;
-        let voltageMax = -Infinity;
-        let voltageMin = Infinity;
-
-        let lastTime = test.startTime;
-        for(const timestamp of test.timestamps) {
-            wattMillis += timestamp.current * timestamp.voltage * (timestamp.time - lastTime);
-
-            currentMax = Math.max(currentMax, timestamp.current);
-            currentMin = Math.min(currentMin, timestamp.current);
-            voltageMax = Math.max(voltageMax, timestamp.voltage);
-            voltageMin = Math.min(voltageMin, timestamp.voltage);
-
-            lastTime = timestamp.time;
-        }
-
-        test.drainDuration = (lastTime - test.startTime) / 1000;
-
-        test.capacity = wattMillis / 60 / 60 / 1000;
-        test.currentMax = currentMax;
-        test.currentMin = currentMin;
-        test.voltageMax = voltageMax;
-        test.voltageMin = voltageMin;
-    }
-
-    const finishBatteryTesting = function(successful) {
+    const finishBatteryTesting = function() {
         sendSerialMessage(`LOAD OFF`);
-
-        test.testingSuccessful = successful;
-
-        processTest();
-
-        recordTest(test);
     
         document.querySelector("#startTest").disabled = false;
     }

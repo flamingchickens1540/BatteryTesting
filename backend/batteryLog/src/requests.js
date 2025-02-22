@@ -6,8 +6,9 @@ module.exports = {
     get : {
         "/battery" : req => dbBatteryQueries.getBattery(req.query["battery-id"]),
         "/battery/all" : dbBatteryQueries.getBatteries,
-        "/battery/capacities" : dbBatteryQueries.getBatteryCapacities,
-        "/tests" : req => dbTestsQueries.getBatteryTests(req.query["battery-id"])
+        "/battery/dates" : dbBatteryQueries.getBatteryDates,
+        "/battery/tests" : req => dbTestsQueries.getBatteryTests(req.query["battery-id"]),
+        "/test" : req => dbTestsQueries.getTest(req.query["test-id"])
     },
     post : {
         "/battery" : async req => {
@@ -24,10 +25,10 @@ module.exports = {
             return await dbBatteryQueries.addBattery(id, body.batteryName, body.batteryDate);
         },
         "/battery/remove" : req => dbBatteryQueries.removeBattery(req.query["battery-id"]),
-        "/test/create" : req => {
+        "/test/log" : req => {
             const body = req.body;
             
-            return dbTestsQueries.createTest(body.batteryId, body.time, body.name);
+            return dbTestsQueries.logTest(req.query["battery-id"], body.time, body.name, body.startVoltage, body.success, body.timestamps);
         }
     }
 }
