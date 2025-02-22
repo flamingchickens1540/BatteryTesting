@@ -22,10 +22,13 @@
         delete __batteryList[__batteryList.indexOf(__batteryList.find(battery => battery.id == batteryId))];
     }
 
-    function selectBattery(battery) {
-        __currentBattery = battery;
+    function selectBattery(batteryName) {
+        const batteryInfo = __batteryList.find(battery => battery.name == batteryName);
 
-        const batteryInfo = __batteryList.find(bat => bat.name == battery.name);
+        __currentBattery = {
+            name : batteryInfo.name,
+            capacity : batteryInfo.capacity
+        };
 
         loadTests(batteryInfo.id);
 
