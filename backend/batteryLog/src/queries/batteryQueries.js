@@ -15,11 +15,13 @@ function removeBattery(id) {
 }
 
 function getBatteries() {
-    return database.query(`SELECT id, name, date FROM ${BATTERIES_TABLES};`, result => result);
+    return database.query(`SELECT id, name, date FROM ${BATTERIES_TABLES};`, result => ({batteries : result, length : result.length}));
+    // return database.query(`SELECT id, name, date FROM ${BATTERIES_TABLES};`, result => JSON.stringify({batteries : result, length : result.length}));
 }
 
 function getBatteryIds() {
-    return database.query(`SELECT id date FROM ${BATTERIES_TABLES};`, result => result.map(data => data.id));
+    return database.query(`SELECT id, date FROM ${BATTERIES_TABLES};`, result => ({ids : result.map(data => data.id), length : result.length}));
+    // return database.query(`SELECT id, date FROM ${BATTERIES_TABLES};`, result => JSON.stringify({ids : result.map(data => data.id), length : result.length}));
 }
 
 function getBatteryCapacities() {
