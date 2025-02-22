@@ -7,6 +7,6 @@
     }
 
     function getBatteries() {
-        
+        return batteryList;
     }
 }

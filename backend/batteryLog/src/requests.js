@@ -11,7 +11,7 @@ module.exports = {
     },
     post : {
         "/battery" : async req => {
-            const ids = await dbBatteryQueries.getBatteryIds();
+            const ids = (await dbBatteryQueries.getBatteryIds()).ids;
 
             let id;
  
