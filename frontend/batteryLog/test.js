@@ -5,7 +5,7 @@
 
     async function loadTests(batteryId) {
         __batteryId = batteryId;
-        __tests = (await fetch(`/BatteryTestingAPI/battery/tests/?battery-id=${batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json())).tests;
+        fetch(`/BatteryTestingAPI/battery/tests/?battery-id=${batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json()).then(json => __tests = json.tests);
     }
 
     function getTests() {
