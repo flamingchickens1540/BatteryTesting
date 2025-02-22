@@ -34,7 +34,6 @@ async function logTest(batteryId, time, name, startVoltage, success, timestamps)
 module.exports = {
     getBatteryTests,
     getTimestamps,
-    createTest,
     logTest,
     getTest
 };
