@@ -23,7 +23,7 @@ module.exports = {
 
             return await dbBatteryQueries.addBattery(id, body.batteryName, body.batteryDate);
         },
-        "/battery/remove" : dbBatteryQueries.removeBattery(req.query["battery-id"]),
+        "/battery/remove" : req => dbBatteryQueries.removeBattery(req.query["battery-id"]),
         "/test/create" : req => {
             const body = req.body;
             
