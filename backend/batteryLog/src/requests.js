@@ -4,7 +4,8 @@ const ID_RANGE = 500;
 module.exports = {
     get : {
         "/battery" : async req => await dbBatteryQueries.getBattery(req.query["battery-id"]),
-        "/batteries" : dbBatteryQueries.getBatteries
+        "/battery/all" : dbBatteryQueries.getBatteries,
+        "/capacities" : dbBatteryQueries.getBatteryCapacities
     },
     post : {
         "/battery" : async req => {
@@ -19,6 +20,7 @@ module.exports = {
             const body = req.body;
 
             return await dbBatteryQueries.addBattery(id, body.batteryName, body.batteryDate);
-        }
+        },
+        "/removeBattery" : async req => await dbBatteryQueries.removeBattery(req.query["battery-id"])
     }
 }
