@@ -41,3 +41,7 @@ button:active {
 #testSelect {
     width: 100%;
 }
+
+.batterySection {
+    min-width: 500px;
+}

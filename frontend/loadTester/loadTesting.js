@@ -1,6 +1,6 @@
 {
     // Set the configurations to the load tester
-    const setupConfigs = async function() {
+    async function setupConfigs() {
         const mode = getLoadTestingConfig("mode");
         const level = getLoadTestingConfig("high")  ? "HIGH" : "LOW";
 
@@ -27,10 +27,13 @@
     }
 
     async function testBattery() {
-
         document.querySelector("#startTest").disabled = true;
         
-        createTest(new Date().toUTCString(), Date.now(), (await getNextReading()).voltage);
+        createTest(
+            new Date().toUTCString(), 
+            Date.now(), 
+            (await getNextReading()).voltage
+        );
 
         setupConfigs();
 
