@@ -21,14 +21,23 @@ function insertTimestamp(testId, time, voltage, current) {
 }
 
 async function logTest(batteryId, time, name, startVoltage, success, timestamps) {
-    await database.query(`INSERT INTO ${TESTS_TABLE} VALUES(${Number(batteryId)}, ${Number(time)}, ${timestamps[timestamps.length-1].time - Number(time)}, "${name.replaceAll('"', '')}", ${Number(startVoltage)}, ${timestamps.map(timestamps => timestamps.current * timestamps.voltage).reduce((total, watt) => total + watt) / 60 / 60 / 1000}, ${success ? 1 : 0}, ${CODE_VERSION});`, () => {});
+    if(isNaN(Number(batteryId)) || isNaN(Number(time)) || typeof name != "string")
+        return Error("Invalid Data");
+
+    const capacity = timestamps.map(timestamps => timestamps.current * timestamps.voltage).reduce((total, watt) => total + watt) / 60 / 60 / 1000;
+
+    time = Number(time);
+
+    await database.query(`INSERT INTO ${TESTS_TABLE} VALUES(${Number(batteryId)}, ${time}, ${timestamps[timestamps.length-1].time - time}, "${name.replaceAll('"', '')}", ${Number(startVoltage)}, ${capacity}, ${success ? 1 : 0}, ${CODE_VERSION});`, () => {});
 
     for(const timestamp of timestamps) {
-        const result = await insertTimestamp(time, timestamp.time, timestamp.voltage, timestamp.current);
+        const result = await insertTimestamp(time, Number(timestamp.time), Number(timestamp.voltage), Number(timestamp.current));
 
         if(result instanceof Error)
             return result;
     }
+
+    return database.query(`UPDATE ${BATTERIES_TABLES} SET capacity = ${capacity} WHERE id = ${Number(batteryId)}`, () => "Success");
 } 
 
 module.exports = {

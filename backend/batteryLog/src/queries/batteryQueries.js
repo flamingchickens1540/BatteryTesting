@@ -6,8 +6,11 @@ function getBattery(batteryId) {
     return database.query(`SELECT * FROM ${BATTERIES_TABLES} WHERE id=${Number(batteryId)};`, result => result[0]);
 }
 
-function addBattery(id, name, date) {
-    return database.query(`INSERT INTO ${BATTERIES_TABLES} (id, name, date) VALUES(${Number(id)}, "${name.replaceAll('"', '')}", DATE("${date.replaceAll('"', '')}"));`, () => id);
+async function addBattery(id, name, date) {
+    if(isNaN(Number(id)) || typeof name != "string" || typeof date != "string")
+        return Error("Invalid Data");
+
+    return await database.query(`INSERT INTO ${BATTERIES_TABLES} (id, name, date) VALUES(${Number(id)}, "${name.replaceAll('"', '')}", DATE("${date.replaceAll('"', '')}"));`, () => id);
 }
 
 // Might not work due to foreign keys
