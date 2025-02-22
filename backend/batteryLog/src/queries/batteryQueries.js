@@ -1,17 +1,25 @@
 const database = require("../database.js");
 
-const BATTERIES_TABLES = "batteries";
+const BATTERIES_TABLES = "Batteries";
 
 function getBattery(batteryId) {
     return database.query(`SELECT * FROM ${BATTERIES_TABLES} WHERE id=${batteryId};`, result => result[0]);
 }
 
 function addBattery(id, name, date) {
-    return database.query(`INSERT INTO ${BATTERIES_TABLES} VALUES(${id}, "${name}", DATE("${date}"), NULL, NULL);`, () => id);
+    return database.query(`INSERT INTO ${BATTERIES_TABLES} (id, name, date) VALUES(${id}, "${name}", DATE("${date}"));`, () => id);
+}
+
+function removeBattery(id) {
+    return database.query(`DELETE FROM ${BATTERIES_TABLES} WHERE id=${id};`, () => id);
 }
 
 function getBatteries() {
-    return database.query(`SELECT id, name, capacity FROM ${BATTERIES_TABLES};`, result => result);
+    return database.query(`SELECT id, name, date FROM ${BATTERIES_TABLES};`, result => result);
+}
+
+function getBatteryCapacities() {
+    return database.query(`SELECT id, capacity FROM ${BATTERIES_TABLES};`, result => result);
 }
 
 function setCapacity(id, capacity) {
@@ -21,6 +29,8 @@ function setCapacity(id, capacity) {
 module.exports = {
     getBattery,
     addBattery,
+    removeBattery,
     getBatteries,
+    getBatteryCapacities,
     setCapacity
 };
