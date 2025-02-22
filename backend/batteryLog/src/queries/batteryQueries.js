@@ -18,6 +18,10 @@ function getBatteries() {
     return database.query(`SELECT id, name, date FROM ${BATTERIES_TABLES};`, result => result);
 }
 
+function getBatteryIds() {
+    return database.query(`SELECT id date FROM ${BATTERIES_TABLES};`, result => result.map(data => data.id));
+}
+
 function getBatteryCapacities() {
     return database.query(`SELECT id, capacity FROM ${BATTERIES_TABLES};`, result => result);
 }
@@ -32,5 +36,6 @@ module.exports = {
     removeBattery,
     getBatteries,
     getBatteryCapacities,
+    getBatteryIds,
     setCapacity
 };
