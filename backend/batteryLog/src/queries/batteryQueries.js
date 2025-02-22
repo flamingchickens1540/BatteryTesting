@@ -10,7 +10,7 @@ async function addBattery(id, name, date) {
     if(isNaN(Number(id)) || typeof name != "string" || typeof date != "string")
         return Error("Invalid Data");
 
-    return await database.query(`INSERT INTO ${BATTERIES_TABLES} (id, name, date) VALUES(${Number(id)}, "${name.replaceAll('"', '')}", DATE("${date.replaceAll('"', '')}"));`, () => id);
+    return await database.query(`INSERT INTO ${BATTERIES_TABLES} (id, name, date) VALUES(${Number(id)}, "${name.replaceAll('"', '')}", DATE("${date.replaceAll('"', '')}"));`, () => {id, name, date});
 }
 
 // Might not work due to foreign keys
