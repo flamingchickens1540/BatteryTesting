@@ -1,5 +1,7 @@
 {
-    // Set the configurations to the load tester
+    /**
+     * set configuration for the test
+     */
     async function setupConfigs() {
         const mode = getLoadTestingConfig("mode");
         const level = getLoadTestingConfig("high")  ? "HIGH" : "LOW";
@@ -26,6 +28,9 @@
         await onPromise;
     }
 
+    /**
+     * creates a test and begins recording data. When the current goes to 0.1 or below, the test deemed done
+     */
     async function testBattery() {
         document.querySelector("#startTest").disabled = true;
         
@@ -43,6 +48,7 @@
 
             const readings = await getNextReading();
 
+            // check current
             if(readings.current <= 0.1) {
                 logTest(true);
                 return finishBatteryTesting();
@@ -52,11 +58,15 @@
         }
     }
 
+    /**
+     * Concludes the test and makes it available for next ones
+     */
     const finishBatteryTesting = function() {
         sendSerialMessage(`LOAD OFF`);
     
         document.querySelector("#startTest").disabled = false;
     }
     
+    // add button functionality
     document.querySelector("#startTest").addEventListener("click", testBattery);
 }

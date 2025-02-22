@@ -1,18 +1,21 @@
+// Cooldown between reads
 const READING_INTERVAL_MILLIS = 10;
 
 {
-    // Promise value to allow async functions to wait for the latest readings
+    // Current promised readings
     let nextReading;
 
+    /**
+     * @returns {Promise<{voltage : number, current : number, time : number}>} the promise for the next readings
+     */
     function getNextReading() {
         return nextReading;
     }
 
-    function startReading() {
-        tickLoop();
-    }
-
-    async function tickLoop() {
+    /**
+     * Starts the process for reading values
+     */
+    var startReading = async function() {
         const currentReading = document.querySelector("#currentReading");
         const voltageReading = document.querySelector("#voltageReading");
         const powerReading = document.querySelector("#powerReading");
@@ -28,6 +31,10 @@ const READING_INTERVAL_MILLIS = 10;
         }
     }
 
+    /**
+     * get readings from the load tester
+     * @returns readings from the load tester
+     */
     async function readLatest() {
         const currentPromise = requestSerialMessage("measure:current");
         const voltagePromise = requestSerialMessage("measure:voltage");

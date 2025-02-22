@@ -1,8 +1,20 @@
-const Modes = ["CC", "CV", "CR", "CP"];
+/**
+ * @type {readonly string[]}
+ */
+const MODES = ["CC", "CV", "CR", "CP"];
 
+/**
+ * root path to the configs
+ * @type {readonly string}
+ */
 const LOAD_TESTING_CONFIG_ITEM = "loadTestingConfig"
 
 {
+    /**
+     * 
+     * @param {string} path Path to the config value
+     * @returns {any} Config value 
+     */
     const getConfig = function(path) {
         return localStorage.getItem(`${LOAD_TESTING_CONFIG_ITEM}.${path}`);
     } 
@@ -39,6 +51,12 @@ const LOAD_TESTING_CONFIG_ITEM = "loadTestingConfig"
         }
     };
 
+    /**
+     * 
+     * @param {string} path Path to the config with "." as separation marks
+     * @param {any} value Value to set
+     * @returns value
+     */
     function setLoadTestingConfig(path, value) {
         const paths = path.split(".");
         
@@ -54,6 +72,11 @@ const LOAD_TESTING_CONFIG_ITEM = "loadTestingConfig"
         return config[paths.length - 1] = value;
     }
 
+    /**
+     * 
+     * @param {string} path Path to the config with "." as separation marks.
+     * @returns Config value
+     */
     function getLoadTestingConfig(path) {
         const paths = path.split(".");
         
