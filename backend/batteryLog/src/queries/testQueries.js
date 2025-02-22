@@ -21,7 +21,7 @@ function insertTimestamp(testId, time, voltage, current) {
 }
 
 async function logTest(batteryId, time, name, startVoltage, success, timestamps) {
-    await database.query(`INSERT INTO ${TESTS_TABLE} (batteryId, startTime, name, codeVersion, startVoltage) VALUES(${Number(batteryId)}, ${Number(time)}, "${name.replaceAll('"', '')}", ${CODE_VERSION}, ${Number(startVoltage)});`, () => {});
+    await database.query(`INSERT INTO ${TESTS_TABLE} VALUES(${Number(batteryId)}, ${Number(time)}, ${timestamps[timestamps.length-1].time - Number(time)}, "${name.replaceAll('"', '')}", ${Number(startVoltage)}, ${timestamps.map(timestamps => timestamps.current * timestamps.voltage).reduce((total, watt) => total + watt) / 60 / 60 / 1000}, ${success ? 1 : 0}, ${CODE_VERSION});`, () => {});
 
     for(const timestamp of timestamps) {
         const result = await insertTimestamp(time, timestamp.time, timestamp.voltage, timestamp.current);
@@ -29,8 +29,6 @@ async function logTest(batteryId, time, name, startVoltage, success, timestamps)
         if(result instanceof Error)
             return result;
     }
-
-    return await database.query(`UPDATE ${TESTS_TABLE} SET success = ${success ? 1 : 0}, duration = ${timestamps[timestamps.length-1].time - Number(time)} WHERE startTime=${Number(time)};`, () => time);
 } 
 
 module.exports = {
