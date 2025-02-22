@@ -3,7 +3,7 @@
     let __batteryId;
     let __currentTest
 
-    async function loadTests(batteryId) {
+    function loadTests(batteryId) {
         __batteryId = batteryId;
         fetch(`/BatteryTestingAPI/battery/tests/?battery-id=${batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json()).then(json => __tests = json.tests);
     }
