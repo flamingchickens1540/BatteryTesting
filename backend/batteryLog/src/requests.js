@@ -10,7 +10,7 @@ module.exports = {
         "/battery/tests" : req => dbTestsQueries.getBatteryTests(req.query["battery-id"]),
         "/test" : req => dbTestsQueries.getTest(req.query["test-id"])
     },
-    post : {
+    put : {
         "/battery" : async req => {
             const ids = (await dbBatteryQueries.getBatteryIds()).ids;
 
