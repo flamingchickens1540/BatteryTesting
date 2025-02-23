@@ -18,4 +18,8 @@
 
         addBattery(battery);
     }
+
+    function getCurrentBattery() {
+        return _currentBattery;
+    }
 }

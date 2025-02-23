@@ -22,7 +22,7 @@
         delete _batteryList[_batteryList.indexOf(_batteryList.find(battery => battery.id == batteryId))];
     }
 
-    function selectBattery(batteryName) {
+    async function selectBattery(batteryName) {
         const batteryInfo = _batteryList.find(battery => battery.name == batteryName);
 
         _currentBattery = {
@@ -30,13 +30,9 @@
             capacity : batteryInfo.capacity
         };
 
-        loadTests(batteryInfo.id);
+        await loadTests(batteryInfo.id);
 
         if(typeof useBattery == "function")
             useBattery(batteryInfo.id);
-    }
-
-    function getCurrentBattery() {
-        return _currentBattery;
     }
 }
