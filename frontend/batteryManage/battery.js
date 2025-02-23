@@ -30,7 +30,7 @@
         const date = new Date(Date.parse("2025-02-22T08:00:00.000Z"));
 
         document.querySelector("#info #name input").value = battery.name;
-        document.querySelector("#info #date input").value = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+        document.querySelector("#info #date input").value = `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${("0" + date.getDate()).slice(-2)}`;
         document.querySelector("#info #description textarea").innerText = battery.description;
     }
 
