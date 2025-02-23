@@ -2,28 +2,26 @@ const database = require("../database.js");
 
 const BATTERIES_TABLES = "Batteries";
 
-const ID_RANGE = 500;
-
 function getBattery(batteryId) {
-    return database.query(`SELECT * FROM ${BATTERIES_TABLES} WHERE id=${Number(batteryId)};`, result => result[0]);
+    return database.execute(`SELECT * FROM ${BATTERIES_TABLES} WHERE id=$1;`, [batteryId], result => result[0]);
 }
 
 async function addBattery(name, date, description) {
-    if(typeof name != "string" || typeof date != "string" || typeof description != "string")
-        return Error("Invalid Data");
+    // if(typeof name != "string" || typeof date != "string" || typeof description != "string")
+    //     return Error("Invalid Data");
 
-    name = name.replaceAll('"', '');
-    await database.query(`INSERT INTO ${BATTERIES_TABLES} (name, date, description) VALUES("${name}", DATE("${date.replaceAll('"', '')}"), "${description.replaceAll('"', '')}");`, () => {});
-    return await await database.query(`SELECT id, name, date, description FROM ${BATTERIES_TABLES} WHERE name="${name}";`, result => result[0]);
+    name = name.replaceAll('"', '\\"');
+    await database.execute(`INSERT INTO ${BATTERIES_TABLES} (name, date, description) VALUES($1, DATE($2), $3);`, [name, date, description], () => {});
+    return await await database.execute(`SELECT id, name, date, description FROM ${BATTERIES_TABLES} WHERE name=$1;`, [name], result => result[0]);
 }
 
 // Might not work due to foreign keys
 function removeBattery(id) {
-    return database.query(`DELETE FROM ${BATTERIES_TABLES} WHERE id=${Number(id)};`, () => id);
+    return database.execute(`DELETE FROM ${BATTERIES_TABLES} WHERE id=$1;`, [id], () => id);
 }
 
 function getBatteries() {
-    return database.query(`SELECT id, name, capacity, date FROM ${BATTERIES_TABLES};`, result => ({batteries : result, length : result.length}));
+    return database.execute(`SELECT id, name, capacity, date FROM ${BATTERIES_TABLES};`, result => ({batteries : result, length : result.length}));
     // return database.query(`SELECT id, name, date FROM ${BATTERIES_TABLES};`, result => JSON.stringify({batteries : result, length : result.length}));
 }
 
@@ -33,11 +31,11 @@ function getBatteries() {
 // }
 
 function getBatteryDates() {
-    return database.query(`SELECT id, date FROM ${BATTERIES_TABLES};`, result => result);
+    return database.execute(`SELECT id, date FROM ${BATTERIES_TABLES};`, [], result => result);
 }
 
 function setCapacity(id, capacity) {
-    return database.query(`UPDATE ${BATTERIES_TABLES} SET capacity = ${Number(capacity)} WHERE id = ${Number(id)}`, () => "Success");
+    return database.execute(`UPDATE ${BATTERIES_TABLES} SET capacity = $1 WHERE id = $2`, [capacity, id], () => "Success");
 }
 
 module.exports = {
