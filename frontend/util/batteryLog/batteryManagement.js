@@ -18,6 +18,4 @@
 
         addBattery(battery);
     }
-
-    
 }
