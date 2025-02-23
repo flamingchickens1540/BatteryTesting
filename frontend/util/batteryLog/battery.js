@@ -32,9 +32,9 @@
         };
 
         if(typeof useBattery == "function")
-            await useBattery(batteryInfo.id);
+            await useBattery(batteryInfo);
 
         if(typeof loadTests == "function")
-            await loadTests(batteryInfo.id);
+            await loadTests(batteryInfo);
     }
 }
