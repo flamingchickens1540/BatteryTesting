@@ -13,7 +13,7 @@ async function addBattery(name, date, description) {
         return Error("Invalid Data");
 
     name = name.replaceAll('"', '');
-    await database.query(`INSERT INTO ${BATTERIES_TABLES} (name, date, description) VALUES("${name}", DATE("${date.replaceAll('"', '')}"), ${description.replaceAll('"', '')});`, () => {});
+    await database.query(`INSERT INTO ${BATTERIES_TABLES} (name, date, description) VALUES("${name}", DATE("${date.replaceAll('"', '')}"), "${description.replaceAll('"', '')}");`, () => {});
     return await await database.query(`SELECT id, name, capacity FROM ${BATTERIES_TABLES} WHERE name="${name}";`, result => result);
 }
 
