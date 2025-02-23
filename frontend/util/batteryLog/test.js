@@ -26,4 +26,8 @@
                 useTest(test);
         });
     }
+
+    function getTimestamps() {
+        return fetch(`/BatteryTestingAPI/battery/test/timestamps/?test-id=${_currentTest.startTime}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json());
+    }
 }
