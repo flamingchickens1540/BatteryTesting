@@ -2,13 +2,18 @@
 <html lang="en">
     <head>
         <title>Battery Manage</title>
+        <link rel="stylesheet" type="text/css" href="style.css"/>
+
         <script src="../util/batteryLog/batteryManagement.js"></script>
         <script src="../util/batteryLog/battery.js"></script>
     </head>
     <body>
+        <header>
+            <h1>Battery Management</h1>
+        </header>
         <div id="select">
             <label for="batteryList" style="display:none;">Choose a battery:</label>
-            <select multiple name="batteries" id="batteryList" class="list"></select>
+            <select size="2" name="batteries" id="batteryList" class="list"></select>
         </div>
         <div id="info">
             <div id="name">
