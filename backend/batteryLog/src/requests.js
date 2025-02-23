@@ -8,7 +8,7 @@ module.exports = {
         "/battery/dates" : dbBatteryQueries.getBatteryDates,
         "/battery/tests" : req => dbTestsQueries.getBatteryTests(req.query["battery-id"]),
         "/test" : req => dbTestsQueries.getTest(req.query["test-id"]),
-        "test/timestamps" : req => dbTestsQueries.getTimestamps(req.query["test-id"])
+        "/test/timestamps" : req => dbTestsQueries.getTimestamps(req.query["test-id"])
     },
     put : {
         "/battery" : async req => {
