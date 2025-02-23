@@ -22,6 +22,7 @@
         delete _batteryList[_batteryList.indexOf(_batteryList.find(battery => battery.id == batteryId))];
     }
 
+    // This function will return a promise if test.js is loaded. Should not be a problem
     function selectBattery(batteryName) {
         const batteryInfo = _batteryList.find(battery => battery.name == batteryName);
 
@@ -33,7 +34,8 @@
         if(typeof useBattery == "function")
             useBattery(batteryInfo.id);
 
-        return loadTests(batteryInfo.id);
+        if(typeof loadTests == "function")
+            return loadTests(batteryInfo.id);
     }
 
     function getSelectedBattery() {
