@@ -3,7 +3,7 @@ const database = require("../database.js");
 const BATTERIES_TABLES = "Batteries";
 
 function getBattery(batteryId) {
-    return database.execute(`SELECT * FROM ${BATTERIES_TABLES} WHERE id=$1;`, [batteryId], result => result[0]);
+    return database.execute(`SELECT * FROM ${BATTERIES_TABLES} WHERE id=?;`, [batteryId], result => result[0]);
 }
 
 async function addBattery(name, date, description) {
@@ -11,13 +11,13 @@ async function addBattery(name, date, description) {
     //     return Error("Invalid Data");
 
     name = name.replaceAll('"', '\\"');
-    await database.execute(`INSERT INTO ${BATTERIES_TABLES} (name, date, description) VALUES($1, DATE($2), $3);`, [name, date, description], () => {});
-    return await await database.execute(`SELECT id, name, date, description FROM ${BATTERIES_TABLES} WHERE name=$1;`, [name], result => result[0]);
+    await database.execute(`INSERT INTO ${BATTERIES_TABLES} (name, date, description) VALUES(?, DATE(?), ?);`, [name, date, description], () => {});
+    return await await database.execute(`SELECT id, name, date, description FROM ${BATTERIES_TABLES} WHERE name=?;`, [name], result => result[0]);
 }
 
 // Might not work due to foreign keys
 function removeBattery(id) {
-    return database.execute(`DELETE FROM ${BATTERIES_TABLES} WHERE id=$1;`, [id], () => id);
+    return database.execute(`DELETE FROM ${BATTERIES_TABLES} WHERE id=?;`, [id], () => id);
 }
 
 function getBatteries() {
@@ -35,7 +35,7 @@ function getBatteryDates() {
 }
 
 function setCapacity(id, capacity) {
-    return database.execute(`UPDATE ${BATTERIES_TABLES} SET capacity = $1 WHERE id = $2`, [capacity, id], () => "Success");
+    return database.execute(`UPDATE ${BATTERIES_TABLES} SET capacity = ? WHERE id = ?`, [capacity, id], () => "Success");
 }
 
 module.exports = {
