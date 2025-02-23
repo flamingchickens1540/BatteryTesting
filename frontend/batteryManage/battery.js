@@ -27,9 +27,11 @@
     const showBatteryInfo = function() {
         const battery = getBattery();
 
-        document.querySelector("#info #date").innerText = battery.date;
-        document.querySelector("#info #capacity").innerText = battery.capacity;
-        document.querySelector("#info #description").innerText = battery.description;
+        const date = new Date(Date.parse("2025-02-22T08:00:00.000Z"));
+
+        document.querySelector("#info #name input").value = battery.name;
+        document.querySelector("#info #date input").value = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+        document.querySelector("#info #description textarea").innerText = battery.description;
     }
 
     const deleteBattery = function() {

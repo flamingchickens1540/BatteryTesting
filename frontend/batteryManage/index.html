@@ -11,9 +11,15 @@
             <select multiple name="batteries" id="batteryList" class="list"></select>
         </div>
         <div id="info">
-            <p>Capacity: <span id="capacity"></span></p>
-            <p>Manufactue Date: <span id="date"></span></p>
-            <p>Description: <span id="description"></span></p>
+            <div id="name">
+                <label for="batteryName">Manufacture Date: </label><input type="text" id="batteryName" name="batteryName"/>
+            </div>
+            <div id="date">
+                <label for="manufactureDate">Manufacture Date: </label><input type="date" id="manufactureDate" name="manufactureDate"/>
+            </div>
+            <div id="description">
+                <label for="description">Description: </label><textarea type="text" id="batteryDescription" name="batteryDescription"></textarea>
+            </div>
         </div>
         <div id="options">
             <button class="delete">Delete Battery</button>
