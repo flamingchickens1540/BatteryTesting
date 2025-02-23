@@ -9,7 +9,7 @@ function getBatteryTests(batteryId) {
 }
 
 function getTest(testId) {
-    return database.query(`SELECT batteryId, startTime, name, success, capacity, codeVersion, startVoltage, duration, MIN(SELECT voltage FROM ${TIMESTAMPS_TABLE} WHERE testId=${Number(testId)}) AS minVoltage, MAX(SELECT voltage FROM ${TIMESTAMPS_TABLE} WHERE testId=${Number(testId)}) AS maxVoltage, MIN(SELECT current FROM ${TIMESTAMPS_TABLE} WHERE testId=${Number(testId)}) AS minCurrent, MAX(SELECT current FROM ${TIMESTAMPS_TABLE} WHERE testId=${Number(testId)}) AS maxCurrent FROM ${TESTS_TABLE} WHERE startTime=${Number(testId)};`, result => result[0]);
+    return database.query(`SELECT batteryId, startTime, name, success, capacity, codeVersion, startVoltage, duration, (SELECT MIN(voltage) FROM ${TIMESTAMPS_TABLE} WHERE testId=${Number(testId)}) AS minVoltage, (SELECT MAX(voltage) FROM ${TIMESTAMPS_TABLE} WHERE testId=${Number(testId)}) AS maxVoltage, (SELECT MIN(current) FROM ${TIMESTAMPS_TABLE} WHERE testId=${Number(testId)}) AS minCurrent, (SELECT MAX(current) FROM ${TIMESTAMPS_TABLE} WHERE testId=${Number(testId)}) AS maxCurrent FROM ${TESTS_TABLE} WHERE startTime=${Number(testId)};`, result => result[0]);
 }
 
 function getTimestamps(testId) {
