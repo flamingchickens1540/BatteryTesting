@@ -9,8 +9,6 @@ function getBattery(batteryId) {
 async function addBattery(name, date, description) {
     // if(typeof name != "string" || typeof date != "string" || typeof description != "string")
     //     return Error("Invalid Data");
-
-    name = name.replaceAll('"', '\\"');
     await database.execute(`INSERT INTO ${BATTERIES_TABLES} (name, date, description) VALUES(?, DATE(?), ?);`, [name, date, description], () => {});
     return await await database.execute(`SELECT id, name, date, description FROM ${BATTERIES_TABLES} WHERE name=?;`, [name], result => result[0]);
 }
