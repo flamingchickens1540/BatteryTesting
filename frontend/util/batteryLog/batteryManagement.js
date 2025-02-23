@@ -2,7 +2,7 @@
     let _currentBattery;
 
     var useBattery = async function(battery) {
-        _currentBattery = await fetch(`/BatteryTestingAPI/battery/?battery-id=${battery.id}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}});
+        _currentBattery = await fetch(`/BatteryTestingAPI/battery/?battery-id=${battery.id}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json());
     }
 
     async function deleteBatteryProfile() {
