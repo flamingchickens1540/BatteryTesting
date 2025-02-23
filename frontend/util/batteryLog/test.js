@@ -5,7 +5,7 @@
 
     function loadTests(battery) {
         _batteryId = battery.id;
-        return fetch(`/BatteryTestingAPI/battery/tests/?battery-id=${batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json()).then(json => _tests = json.tests);
+        return fetch(`/BatteryTestingAPI/battery/tests/?battery-id=${_batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json()).then(json => _tests = json.tests);
     }
 
     function getTests() {
