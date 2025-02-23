@@ -12,7 +12,8 @@ async function addBattery(name, date) {
     if(typeof name != "string" || typeof date != "string")
         return Error("Invalid Data");
 
-    return await database.query(`INSERT INTO ${BATTERIES_TABLES} (name, date) VALUES("${name.replaceAll('"', '')}", DATE("${date.replaceAll('"', '')}")); SELECT id, name, capacity FROM ${BATTERIES_TABLES} WHERE name=${name};`, result => result);
+    await database.query(`INSERT INTO ${BATTERIES_TABLES} (name, date) VALUES("${name.replaceAll('"', '')}", DATE("${date.replaceAll('"', '')}"));`, () => {});
+    return await await database.query(`SELECT id, name, capacity FROM ${BATTERIES_TABLES} WHERE name=${name};`, result => result);
 }
 
 // Might not work due to foreign keys
@@ -25,10 +26,10 @@ function getBatteries() {
     // return database.query(`SELECT id, name, date FROM ${BATTERIES_TABLES};`, result => JSON.stringify({batteries : result, length : result.length}));
 }
 
-function getBatteryIds() {
-    return database.query(`SELECT id FROM ${BATTERIES_TABLES};`, result => ({ids : result.map(data => data.id), length : result.length}));
-    // return database.query(`SELECT id, date FROM ${BATTERIES_TABLES};`, result => JSON.stringify({ids : result.map(data => data.id), length : result.length}));
-}
+// function getBatteryIds() {
+//     return database.query(`SELECT id FROM ${BATTERIES_TABLES};`, result => ({ids : result.map(data => data.id), length : result.length}));
+//     // return database.query(`SELECT id, date FROM ${BATTERIES_TABLES};`, result => JSON.stringify({ids : result.map(data => data.id), length : result.length}));
+// }
 
 function getBatteryDates() {
     return database.query(`SELECT id, date FROM ${BATTERIES_TABLES};`, result => result);
