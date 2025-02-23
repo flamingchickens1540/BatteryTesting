@@ -8,7 +8,7 @@
     function deleteBatteryProfile() {
         if(!_currentBattery)
             return;
-        return fetch(`/BatteryTestingAPI/battery/remove/?battery-id=${_currentBattery.id}`, {method:"PUT"}).then(() => removeBattery(_currentBattery.id));
+        return fetch(`/BatteryTestingAPI/battery/remove/?battery-id=${_currentBattery.id}`, {method:"PUT"}).then(res => res.json()).then(() => removeBattery(_currentBattery.id));
     }
 
     function addBatteryProfile(name, date, description) {
@@ -16,7 +16,7 @@
             batteryName : name,
             batteryDate : date,
             batteryDescription : description
-        })}).then(addBattery);
+        })}).then(res => res.json()).then(addBattery);
     }
 
     function getBattery() {
