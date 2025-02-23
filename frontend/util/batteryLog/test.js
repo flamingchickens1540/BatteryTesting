@@ -15,15 +15,15 @@
         }));
     }
 
-    async function selectTest(testId) {
-        const test = await fetch(`/BatteryTestingAPI/test/?test-id=${testId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json());
+    function selectTest(testId) {
+        return fetch(`/BatteryTestingAPI/test/?test-id=${testId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json()).then(test => {
+            _currentTest = {
+                name : test.name,
+                startTime : test.startTime
+            };
 
-        _currentTest = {
-            name : test.name,
-            startTime : test.startTime
-        };
-
-        if(typeof useTest == "function")
-            useTest(test);
+            if(typeof useTest == "function")
+                useTest(test);
+        });
     }
 }
