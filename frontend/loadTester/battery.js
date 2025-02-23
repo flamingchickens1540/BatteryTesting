@@ -37,8 +37,8 @@
 
     document.querySelector("#test .list").addEventListener("change", switchTest);
 
-    async function switchTest() {
-        await selectTest(document.querySelector("#test .list").value);
+    async function switchTest(event) {
+        await selectTest(event.target.value);
 
         const test = getTest();
 

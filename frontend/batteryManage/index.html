@@ -6,9 +6,15 @@
         <script src="../util/batteryLog/battery.js"></script>
     </head>
     <body>
-        <label for="batteryList">Choose a battery:</label>
-        <select multiple name="batteries" id="batteryList" class="list"></select>
-
+        <div id="select">
+            <label for="batteryList" style="display:none;">Choose a battery:</label>
+            <select multiple name="batteries" id="batteryList" class="list"></select>
+        </div>
+        <div id="info">
+            <p>Capacity: <span id="capacity"></span></p>
+            <p>Manufactue Date: <span id="date"></span></p>
+            <p>Description: <span id="description"></span></p>
+        </div>
         <script src="battery.js"></script>
     </body>
 </html>
