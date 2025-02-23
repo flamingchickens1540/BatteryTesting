@@ -64,5 +64,5 @@
         a.remove();
     }
 
-    document.querySelector("#testDownload").addEventListener("click", downloadTest);
+    document.querySelector("#test .download").addEventListener("click", downloadTest);
 }
