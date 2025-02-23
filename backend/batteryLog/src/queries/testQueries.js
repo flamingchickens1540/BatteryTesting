@@ -37,7 +37,7 @@ async function logTest(batteryId, time, name, startVoltage, success, timestamps)
             return result;
     }
 
-    return database.query(`UPDATE ${BATTERIES_TABLES} SET capacity = ${capacity} WHERE id = ${Number(batteryId)}`, () => "Success");
+    return capacity;
 } 
 
 module.exports = {

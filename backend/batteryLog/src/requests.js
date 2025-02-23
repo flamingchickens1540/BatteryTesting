@@ -28,10 +28,10 @@ module.exports = {
             return await dbBatteryQueries.addBattery(id, body.batteryName, body.batteryDate);
         },
         "/battery/remove" : req => dbBatteryQueries.removeBattery(req.query["battery-id"]),
-        "/test/log" : req => {
+        "/test/log" : async req => {
             const body = req.body;
             
-            return dbTestsQueries.logTest(req.query["battery-id"], body.time, body.name, body.startVoltage, body.success, body.timestamps);
+            return await dbBatteryQueries.setCapacity(req.query["battery-id"], await dbTestsQueries.logTest(req.query["battery-id"], body.time, body.name, body.startVoltage, body.success, body.timestamps));
         }
     }
 }
