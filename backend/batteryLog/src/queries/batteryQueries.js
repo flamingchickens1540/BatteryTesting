@@ -12,15 +12,7 @@ async function addBattery(name, date) {
     if(typeof name != "string" || typeof date != "string")
         return Error("Invalid Data");
 
-    const ids = (await getBatteryIds()).ids;
-
-    let id;
-
-    do {
-        id = Math.floor(Math.random() * ID_RANGE);
-    } while(ids.includes(id));
-
-    return await database.query(`INSERT INTO ${BATTERIES_TABLES} (id, name, date) VALUES(${id}, "${name.replaceAll('"', '')}", DATE("${date.replaceAll('"', '')}"));`, () => {id, name, date});
+    return await database.query(`INSERT INTO ${BATTERIES_TABLES} (name, date) VALUES("${name.replaceAll('"', '')}", DATE("${date.replaceAll('"', '')}")); SELECT id, name, capacity FROM ${BATTERIES_TABLES} WHERE name=${name};`, result => result);
 }
 
 // Might not work due to foreign keys
