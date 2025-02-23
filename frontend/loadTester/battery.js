@@ -31,9 +31,13 @@
 
         testNamesElement.label = tests[0].name;
         testNamesElement.value = tests[0].startTime;
+
+        switchTest();
     });
 
-    document.querySelector("#test .list").addEventListener("change", async () => {
+    document.querySelector("#test .list").addEventListener("change", switchTest);
+
+    async function switchTest() {
         await selectTest(document.querySelector("#test .list").value);
 
         const test = getTest();
@@ -45,5 +49,5 @@
         document.querySelector("#test #info #maxVoltage") = test.maxVoltage;
         document.querySelector("#test #info #minCurrent") = test.minCurrent;
         document.querySelector("#test #info #maxCurrent") = test.maxCurrent;
-    });
+    }
 }
