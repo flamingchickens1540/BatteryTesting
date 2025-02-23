@@ -1,11 +1,11 @@
 {
     const getConfig = function() {
-        document.querySelector("#setConfig").value = getLoadTestingConfig(document.querySelector("#configPathInput").value)
+        document.querySelector("#config #value .input").value = getLoadTestingConfig(document.querySelector("#config #path .input").value)
     }
 
     const setConfig = function() {
-        const path = document.querySelector("#configPathInput").value;
-        const value = document.querySelector("#setConfig").value;
+        const path = document.querySelector("#config #path .input").value;
+        const value = document.querySelector("#config #value .input").value;
 
         const currentValue = getLoadTestingConfig(path);
         if(typeof currentValue == "object")
@@ -14,6 +14,6 @@
         setLoadTestingConfig(path, Object.getPrototypeOf(currentValue).constructor(value));
     }
 
-    document.querySelector("#getConfig").addEventListener("click", getConfig);
-    document.querySelector("#setConfigValue").addEventListener("click", setConfig);
+    document.querySelector("#config #path .get").addEventListener("click", getConfig);
+    document.querySelector("#config #value .set").addEventListener("click", setConfig);
 }

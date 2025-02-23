@@ -42,6 +42,6 @@ button:active {
     width: 100%;
 }
 
-.batterySection {
+.battery {
     min-width: 500px;
 }

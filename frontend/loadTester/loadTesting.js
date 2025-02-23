@@ -32,7 +32,7 @@
      * creates a test and begins recording data. When the current goes to 0.1 or below, the test deemed done
      */
     async function testBattery() {
-        document.querySelector("#startTest").disabled = true;
+        document.querySelector("#test .start").disabled = true;
         
         createTest(
             new Date().toUTCString(), 
@@ -64,9 +64,9 @@
     const finishBatteryTesting = function() {
         sendSerialMessage(`LOAD OFF`);
     
-        document.querySelector("#startTest").disabled = false;
+        document.querySelector("#test .start").disabled = false;
     }
     
     // add button functionality
-    document.querySelector("#startTest").addEventListener("click", testBattery);
+    document.querySelector("#test .start").addEventListener("click", testBattery);
 }

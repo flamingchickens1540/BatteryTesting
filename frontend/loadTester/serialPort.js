@@ -18,7 +18,7 @@
             if(_serialPort == undefined)
                 return console.error("Could not find serial device");
 
-            document.querySelector("#portCheck").innerText = "Tester Selected";
+            document.querySelector("#serial .check").innerText = "Tester Selected";
         } else {
             _serialPort.close();
         }
@@ -34,7 +34,8 @@
 
         startReading();
 
-        document.querySelector("#testerName").innerText = await requestSerialMessage("name");
+        // Basic serial test to confirm a solid communication 
+        document.querySelector("#serial .name").innerText = await requestSerialMessage("name");
     }
 
     // message delay
@@ -135,7 +136,7 @@
     }
 
     // add button functionality
-    document.querySelector("#selectLoad").addEventListener("click", selectPort);
-    document.querySelector("#connect").addEventListener("click", connect);
-    document.querySelector("#sendCommand").addEventListener("click", async () => alert(await sendSerialMessage(document.querySelector("#commandPrompt").value)));
+    document.querySelector("#serial .select").addEventListener("click", selectPort);
+    document.querySelector("#serial .connect").addEventListener("click", connect);
+    document.querySelector("#command .send").addEventListener("click", async () => alert(await sendSerialMessage(document.querySelector("#command .input").value)));
 }

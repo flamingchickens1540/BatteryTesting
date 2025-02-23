@@ -16,9 +16,9 @@ const READING_INTERVAL_MILLIS = 10;
      * Starts the process for reading values
      */
     var startReading = async function() {
-        const currentReading = document.querySelector("#currentReading");
-        const voltageReading = document.querySelector("#voltageReading");
-        const powerReading = document.querySelector("#powerReading");
+        const currentReading = document.querySelector("#readings .current");
+        const voltageReading = document.querySelector("#readings .voltage");
+        const powerReading = document.querySelector("#readings .power");
 
         while(true) {
             await new Promise(res => setTimeout(res, READING_INTERVAL_MILLIS));
@@ -27,7 +27,7 @@ const READING_INTERVAL_MILLIS = 10;
 
             currentReading.innerText = readings.current;
             voltageReading.innerText = readings.voltage;
-            powerReading.innerText = readings.current * readings.voltage;
+            powerReading.innerText = Number(readings.current * readings.voltage).toLocaleString(2);
         }
     }
 

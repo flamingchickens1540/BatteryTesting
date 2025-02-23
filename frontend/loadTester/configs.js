@@ -67,9 +67,10 @@ const LOAD_TESTING_CONFIG_ITEM = "loadTestingConfig"
         if(typeof config[path] == "object")
             return null;
 
+        
         localStorage.setItem(`loadTestingConfig.${path}`, value);
 
-        return config[paths.length - 1] = value;
+        return config[paths[paths.length - 1]] = value;
     }
 
     /**

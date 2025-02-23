@@ -6,82 +6,80 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="style.css"/>
+
+        <script src="../util/batteryLog/battery.js"></script>
+        <script src="../util/batteryLog/testManagement.js"></script>
+        <script src="../util/batteryLog/test.js"></script>
     </head>
     <body>
         <div class="sections">
             <section id="batterySection">
                 <h1>Load Tester</h1>
-                <div>
+                <div id="serial">
                     <div>
-                        <div>
-                            <button id="selectLoad">Select Load Tester</button>
-                            <span id="portCheck"></span>
-                        </div>
-                        <button id="connect">Connect</button>
-                        <p><b id="testerName">Not Connected</b></p>
+                        <button class="select">Select Load Tester</button>
+                        <span class="check"></span>
                     </div>
+                    <button class="connect">Connect</button>
+                    <p><b class="name">Not Connected</b></p>
                 </div>
-                <div>
+                <div id="readings">
                     <h2>Readings</h2>
-                    <ul><b>Current: </b><span id="currentReading"></span> A</ul>
-                    <ul><b>Voltage: </b><span id="voltageReading"></span> V</ul>
-                    <ul><b>Power: </b><span id="powerReading"></span> W</ul>
+                    <ul><b>Current: </b><span class="current"></span> A</ul>
+                    <ul><b>Voltage: </b><span class="voltage"></span> V</ul>
+                    <ul><b>Power: </b><span class="power"></span> W</ul>
                 </div>
-                <div id="configSetting">
-                    <div>
-                        <label for="configPathInput">Config Path: </label>
-                        <input type="text" id="configPathInput">
-                        <button id="getConfig">Get Value</button>
+                <div id="config">
+                    <div id="path">
+                        <label for="pathInput">Config Path: </label>
+                        <input type="text" class="input" id="pathInput">
+                        <button class="get">Get Value</button>
                     </div>
-                    <div>
-                        <label for="configSet">Config Value: </label>
-                        <input type="text" id="setConfig">
-                        <button id="setConfigValue">Set Value</button>
+                    <div id="value">
+                        <label for="valueInput">Config Value: </label>
+                        <input type="text" class="input" id="valueInput">
+                        <button class="set">Set Value</button>
                     </div>
                 </div>
                 <div id="command" style="display: none;">
-                    <label>Command (Please use with caution)</label>
-                    <input type="text" id="commandPrompt"/>
-                    <button id="sendCommand">Send</button>
+                    <label for="commandPrompt">Command (Please use with caution)</label>
+                    <input type="text" class="input" id="commandPrompt"/>
+                    <button id="send">Send</button>
                 </div>
             </section>
             <div id="rightSection">
-                <section class="batterySection">
+                <section id="battery">
                     <h1>Battery</h1>
-                    <div class="battery">
-                        <label for="list" style="display: none;">Battery Select</label>
-                        <select name="list" id="list"></select>
-                        <button id="select">Select Battery</button>
-                        <p>Battery Name: <span id="name"></span></p>
+                    <div>
+                        <label for="batteryList" style="display: none;">Battery Select</label>
+                        <select name="list" class="list" id="batteryList"></select>
+                        <button class="select">Select Battery</button>
+                        <p>Battery Name: <span class="name"></span></p>
                     </div>
                 </section>
-                <section class="testSection">
+                <section id="test">
                     <div>
                         <h1>Test</h1>
-                        <div class="test">
+                        <div>
                             <label for="testSelect" style="display: none;">Test Select</label>
-                            <select name="testSelect" id="testSelect"></select>
-                            <button id="testDownload">Download Test</button>
+                            <select name="testSelect" class="select" id="testSelect"></select>
+                            <button class="download">Download Test</button>
                         </div>
-                        <div class="testInfo">
-                            <p><b>Drain Duration: </b><span id="drainDuration"></span> s</p>
-                            <p><b>Test Idle Voltage: </b><span id="idleVoltage"></span> V</p>
-                            <p><b>Capacity: </b><span id="capacity"></span> wH</p>
-                            <p><b>Voltage Max: </b><span id="voltageMax"></span> V</p>
-                            <p><b>Voltage Min: </b><span id="voltageMin"></span> V</p>
-                            <p><b>Current Max: </b><span id="currentMax"></span> A</p>
-                            <p><b>Current Min: </b><span id="currentMin"></span> A</p>
+                        <div id="info">
+                            <p><b>Drain Duration: </b><span class="drainDuration"></span> s</p>
+                            <p><b>Test Idle Voltage: </b><span class="idleVoltage"></span> V</p>
+                            <p><b>Capacity: </b><span class="capacity"></span> wH</p>
+                            <p><b>Voltage Max: </b><span class="voltageMax"></span> V</p>
+                            <p><b>Voltage Min: </b><span class="voltageMin"></span> V</p>
+                            <p><b>Current Max: </b><span class="currentMax"></span> A</p>
+                            <p><b>Current Min: </b><span class="currentMin"></span> A</p>
                         </div>
                     </div>
 
-                    <button id="startTest">Start Load Test</button>
+                    <button class="start">Start Load Test</button>
                 </section>
             </div>
         </div>
-
-        <script src="../util/batteryLog/battery.js"></script>
-        <script src="../util/batteryLog/testManagement.js"></script>
-        <script src="../util/batteryLog/test.js"></script>
 
         <script src="configs.js"></script>
         <script src="configEdit.js"></script>
