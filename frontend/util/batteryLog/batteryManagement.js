@@ -11,10 +11,11 @@
         return fetch(`/BatteryTestingAPI/battery/remove/?battery-id=${_currentBattery.id}`, {method:"PUT"}).then(() => removeBattery(_currentBattery.id));
     }
 
-    async function addBatteryProfile(name, date) {
+    async function addBatteryProfile(name, date, description) {
         const battery = await fetch("/BatteryTestingAPI/battery/", {method:"PUT", mode:"cors", headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
             batteryName : name,
-            batteryDate : date
+            batteryDate : date,
+            batteryDescription : description
         })});
 
         addBattery(battery);

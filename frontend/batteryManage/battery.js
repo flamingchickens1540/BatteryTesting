@@ -42,6 +42,11 @@
         fillBatteryList();
     }
 
+    const addBattery = function() {
+        addBatteryProfile(document.querySelector("#info #name input").value, document.querySelector("#info #date input").value, document.querySelector("#info #description textarea").innerText);
+    }
+
     document.querySelector("#select .list").addEventListener("change", event => switchBattery(event.target.value));
     document.querySelector("#options .delete").addEventListener("click", deleteBattery);
+    document.querySelector("#options .add").addEventListener("click", addBattery);
 }
