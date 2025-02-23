@@ -5,11 +5,10 @@
         _currentBattery = await fetch(`/BatteryTestingAPI/battery/?battery-id=${battery.id}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json());
     }
 
-    async function deleteBatteryProfile() {
+    function deleteBatteryProfile() {
         if(!_currentBattery)
             return;
-        await fetch(`/BatteryTestingAPI/battery/remove/?battery-id=${_currentBattery.id}`, {method:"PUT"});
-        removeBattery(_currentBattery);
+        return fetch(`/BatteryTestingAPI/battery/remove/?battery-id=${_currentBattery.id}`, {method:"PUT"}).then(() => removeBattery(_currentBattery.id));
     }
 
     async function addBatteryProfile(name, date) {
