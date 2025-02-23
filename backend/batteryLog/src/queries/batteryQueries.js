@@ -14,7 +14,7 @@ async function addBattery(name, date, description) {
 
     name = name.replaceAll('"', '');
     await database.query(`INSERT INTO ${BATTERIES_TABLES} (name, date, description) VALUES("${name}", DATE("${date.replaceAll('"', '')}"), "${description.replaceAll('"', '')}");`, () => {});
-    return await await database.query(`SELECT id, name, capacity FROM ${BATTERIES_TABLES} WHERE name="${name}";`, result => result);
+    return await await database.query(`SELECT id, name, date, description FROM ${BATTERIES_TABLES} WHERE name="${name}";`, result => result[0]);
 }
 
 // Might not work due to foreign keys
