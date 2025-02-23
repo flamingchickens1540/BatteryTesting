@@ -23,4 +23,8 @@
             timestamps
         })});
     }
+
+    function getTest() {
+        return _currentTest;
+    }
 }

@@ -20,20 +20,10 @@
 
         _currentTest = {
             name : test.name,
-            minVoltage : test.minVoltage,
-            maxVoltage : test.maxVoltage,
-            minCurrent : test.minCurrent,
-            maxCurrent : test.maxCurrent,
-            duration : test.duration,
-            capacity : test.capacity,
-            startVoltage : test.startVoltage
-        }
+            startTime : test.startTime
+        };
 
         if(typeof useTest == "function")
             useTest(test);
-    }
-
-    function getTest() {
-        return _currentTest;
     }
 }
