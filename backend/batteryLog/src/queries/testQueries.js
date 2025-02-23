@@ -17,7 +17,7 @@ function getTimestamps(testId) {
 }
 
 function insertTimestamp(testId, time, voltage, current) {
-    return database.query(`INSERT INTO${TIMESTAMPS_TABLE} VALUES(${Number(testId)}, ${Number(time)}, ${Number(voltage)}, ${Number(current)})`, () => time);
+    return database.query(`INSERT INTO ${TIMESTAMPS_TABLE} VALUES(${Number(testId)}, ${Number(time)}, ${Number(voltage)}, ${Number(current)})`, () => time);
 }
 
 async function logTest(batteryId, time, name, startVoltage, success, timestamps) {
