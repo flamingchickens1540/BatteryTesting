@@ -33,10 +33,11 @@
     }
 
     const deleteBattery = function() {
-        if(!confirm())
+        if(!confirm("Please confirm with someone before deleting a battery."))
             return;
 
         deleteBatteryProfile();
+        fillBatteryList();
     }
 
     document.querySelector("#select .list").addEventListener("change", event => switchBattery(event.target.value));
