@@ -2,15 +2,25 @@ const database = require("../database.js");
 
 const BATTERIES_TABLES = "Batteries";
 
+const ID_RANGE = 500;
+
 function getBattery(batteryId) {
     return database.query(`SELECT * FROM ${BATTERIES_TABLES} WHERE id=${Number(batteryId)};`, result => result[0]);
 }
 
-async function addBattery(id, name, date) {
-    if(isNaN(Number(id)) || typeof name != "string" || typeof date != "string")
+async function addBattery(name, date) {
+    if(typeof name != "string" || typeof date != "string")
         return Error("Invalid Data");
 
-    return await database.query(`INSERT INTO ${BATTERIES_TABLES} (id, name, date) VALUES(${Number(id)}, "${name.replaceAll('"', '')}", DATE("${date.replaceAll('"', '')}"));`, () => {id, name, date});
+    const ids = (await getBatteryIds()).ids;
+
+    let id;
+
+    do {
+        id = Math.floor(Math.random() * ID_RANGE);
+    } while(ids.includes(id));
+
+    return await database.query(`INSERT INTO ${BATTERIES_TABLES} (id, name, date) VALUES(${id}, "${name.replaceAll('"', '')}", DATE("${date.replaceAll('"', '')}"));`, () => {id, name, date});
 }
 
 // Might not work due to foreign keys
@@ -24,7 +34,7 @@ function getBatteries() {
 }
 
 function getBatteryIds() {
-    return database.query(`SELECT id, date FROM ${BATTERIES_TABLES};`, result => ({ids : result.map(data => data.id), length : result.length}));
+    return database.query(`SELECT id FROM ${BATTERIES_TABLES};`, result => ({ids : result.map(data => data.id), length : result.length}));
     // return database.query(`SELECT id, date FROM ${BATTERIES_TABLES};`, result => JSON.stringify({ids : result.map(data => data.id), length : result.length}));
 }
 
@@ -42,6 +52,5 @@ module.exports = {
     removeBattery,
     getBatteries,
     getBatteryDates,
-    getBatteryIds,
     setCapacity
 };
