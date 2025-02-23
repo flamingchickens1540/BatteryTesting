@@ -35,4 +35,8 @@
 
         return loadTests(batteryInfo.id);
     }
+
+    function getSelectedBattery() {
+        return _currentBattery;
+    }
 }

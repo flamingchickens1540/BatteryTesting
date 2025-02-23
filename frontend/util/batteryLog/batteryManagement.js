@@ -19,7 +19,7 @@
         addBattery(battery);
     }
 
-    function getCurrentBattery() {
+    function getBattery() {
         return _currentBattery;
     }
 }
