@@ -19,6 +19,7 @@ document.querySelector("#battery .select").addEventListener("click", async () =>
     document.querySelector("#battery .name").innerText = batteryName;
 
     const testNamesElement = document.querySelector("#test .list");
+    
     getTests().map(test => {
         const element = document.createElement("option");
         element.value = test.startTime;
