@@ -14,7 +14,7 @@ module.exports = {
         "/battery" : async req => {
             const body = req.body;
 
-            return await dbBatteryQueries.addBattery(body.batteryName, body.batteryDate);
+            return await dbBatteryQueries.addBattery(body.batteryName, body.batteryDate. body.batteryDescription ?? "");
         },
         "/battery/remove" : req => dbBatteryQueries.removeBattery(req.query["battery-id"]),
         "/test/log" : async req => {

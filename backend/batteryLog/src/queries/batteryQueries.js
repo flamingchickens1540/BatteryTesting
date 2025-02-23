@@ -8,12 +8,12 @@ function getBattery(batteryId) {
     return database.query(`SELECT * FROM ${BATTERIES_TABLES} WHERE id=${Number(batteryId)};`, result => result[0]);
 }
 
-async function addBattery(name, date) {
-    if(typeof name != "string" || typeof date != "string")
+async function addBattery(name, date, description) {
+    if(typeof name != "string" || typeof date != "string" || typeof description != "string")
         return Error("Invalid Data");
 
     name = name.replaceAll('"', '');
-    await database.query(`INSERT INTO ${BATTERIES_TABLES} (name, date) VALUES("${name}", DATE("${date.replaceAll('"', '')}"));`, () => {});
+    await database.query(`INSERT INTO ${BATTERIES_TABLES} (name, date, description) VALUES("${name}", DATE("${date.replaceAll('"', '')}"), ${description.replaceAll('"', '')});`, () => {});
     return await await database.query(`SELECT id, name, capacity FROM ${BATTERIES_TABLES} WHERE name="${name}";`, result => result);
 }
 
