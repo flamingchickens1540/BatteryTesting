@@ -5,7 +5,7 @@
         fillBatteryList();
     })();
 
-    async function fillBatteryList() {
+    function fillBatteryList() {
         const batteryNamesElement = document.querySelector("#select .list");
 
         batteryNamesElement.childNodes.forEach(child => child.remove());
@@ -17,7 +17,11 @@
             return element;
         }).forEach(batteryNamesElement.appendChild, batteryNamesElement);
 
-        await selectBattery(batteryNamesElement.value);
+        switchBattery(batteryNamesElement.value);
+    }
+
+    const switchBattery = async function(batteryName) {
+        await selectBattery(batteryName);
 
         showBatteryInfo();
     }
@@ -29,4 +33,6 @@
         document.querySelector("#info #capacity").innerText = battery.capacity;
         document.querySelector("#info #description").innerText = battery.description;
     }
+
+    document.querySelector("#select .list").addEventListener("change", event => switchBattery(event.target.value));
 }

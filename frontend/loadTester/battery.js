@@ -35,10 +35,10 @@
         switchTest();
     });
 
-    document.querySelector("#test .list").addEventListener("change", switchTest);
+    document.querySelector("#test .list").addEventListener("change", event => switchTest(event.target.value));
 
-    async function switchTest(event) {
-        await selectTest(event.target.value);
+    async function switchTest(testId) {
+        await selectTest(testId);
 
         const test = getTest();
 
