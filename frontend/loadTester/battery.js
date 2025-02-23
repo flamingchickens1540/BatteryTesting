@@ -42,12 +42,12 @@
 
         const test = getTest();
 
-        document.querySelector("#test #info #duration") = test.duration;
-        document.querySelector("#test #info #startVoltage") = test.startVoltage;
-        document.querySelector("#test #info #capacity") = test.capacity;
-        document.querySelector("#test #info #minVoltage") = test.minVoltage;
-        document.querySelector("#test #info #maxVoltage") = test.maxVoltage;
-        document.querySelector("#test #info #minCurrent") = test.minCurrent;
-        document.querySelector("#test #info #maxCurrent") = test.maxCurrent;
+        document.querySelector("#test #info #duration").innerText = test.duration;
+        document.querySelector("#test #info #startVoltage").innerText = test.startVoltage;
+        document.querySelector("#test #info #capacity").innerText = test.capacity;
+        document.querySelector("#test #info #minVoltage").innerText = test.minVoltage;
+        document.querySelector("#test #info #maxVoltage").innerText = test.maxVoltage;
+        document.querySelector("#test #info #minCurrent").innerText = test.minCurrent;
+        document.querySelector("#test #info #maxCurrent").innerText = test.maxCurrent;
     }
 }
