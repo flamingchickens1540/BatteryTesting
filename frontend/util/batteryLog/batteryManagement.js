@@ -6,6 +6,8 @@
     }
 
     async function deleteBatteryProfile() {
+        if(!_currentBattery)
+            return;
         await fetch(`/BatteryTestingAPI/battery/remove/?battery-id=${_currentBattery.id}`, {method:"PUT"});
         removeBattery(_currentBattery);
     }

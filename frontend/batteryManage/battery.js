@@ -16,8 +16,6 @@
             element.label = battery.name;
             return element;
         }).forEach(batteryNamesElement.appendChild, batteryNamesElement);
-
-        switchBattery(batteryNamesElement.value);
     }
 
     const switchBattery = async function(batteryName) {
@@ -34,5 +32,13 @@
         document.querySelector("#info #description").innerText = battery.description;
     }
 
+    const deleteBattery = function() {
+        if(!confirm())
+            return;
+
+        deleteBatteryProfile();
+    }
+
     document.querySelector("#select .list").addEventListener("change", event => switchBattery(event.target.value));
+    document.querySelector("#options .delete").addEventListener("click", deleteBattery);
 }
