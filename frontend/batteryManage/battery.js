@@ -31,7 +31,7 @@
 
         document.querySelector("#info #name input").value = battery.name;
         document.querySelector("#info #date input").value = `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${("0" + date.getDate()).slice(-2)}`;
-        document.querySelector("#info #description textarea").innerText = battery.description;
+        document.querySelector("#info #description input").value = battery.description;
     }
 
     const deleteBattery = function() {
