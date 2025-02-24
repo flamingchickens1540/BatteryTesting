@@ -19,6 +19,17 @@
         })}).then(res => res.json()).then(addBattery);
     }
 
+    function editBatteryProfile(name, date, description) {
+        return fetch(`/BatteryTestingAPI/battery/?battery-id=${_currentBattery.id}`, {method:"PUT", mode:"cors", headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
+            batteryName : name,
+            batteryDate : date,
+            batteryDescription : description
+        })}).then(res => res.json()).then(res => {
+            removeBattery(_currentBattery);
+            addBattery(res);
+        });
+    }
+
     function getBattery() {
         return _currentBattery;
     }

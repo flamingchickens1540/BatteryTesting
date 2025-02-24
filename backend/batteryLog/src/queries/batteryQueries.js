@@ -17,8 +17,9 @@ async function addBattery(name, date, description) {
     return await await database.execute(`SELECT id, name, date, description FROM ${BATTERIES_TABLES} WHERE name=?;`, [name], result => result[0]);
 }
 
-function editBattery(id, name, date, description) {
-    return database.execute(`UPDATE ${BATTERIES_TABLES} SET name = ?, date = DATE(?), description = ? WHERE id = ?`, [name, date, description, id], () => {});
+async function editBattery(id, name, date, description) {
+    await database.execute(`UPDATE ${BATTERIES_TABLES} SET name = ?, date = DATE(?), description = ? WHERE id = ?`, [name, date, description, id], () => {});
+    return await database.execute(`SELECT id, name, date, description FROM ${BATTERIES_TABLES} WHERE name=?;`, [name], result => result[0]);
 }
 
 // Might not work due to foreign keys
