@@ -1,8 +1,10 @@
 {
+    let _batteries = {};
+    
     let _currentBattery;
 
     var useBattery = async function(battery) {
-        _currentBattery = await fetch(`/BatteryTestingAPI/battery/?battery-id=${battery.id}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json());
+        _currentBattery = _batteries[battery.id] ?? (_batteries[battery.id] = await fetch(`/BatteryTestingAPI/battery/?battery-id=${battery.id}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json()));
     }
 
     function deleteBatteryProfile() {
@@ -16,7 +18,11 @@
             batteryName : name,
             batteryDate : date,
             batteryDescription : description
-        })}).then(res => res.json()).then(addBattery);
+        })}).then(res => res.json()).then(res => {
+            _batteries[res.id] = res;
+
+            addBattery(res);
+        });
     }
 
     function editBatteryProfile(name, date, description) {
@@ -25,6 +31,8 @@
             batteryDate : date,
             batteryDescription : description
         })}).then(res => res.json()).then(res => {
+            _batteries[res.id] = res;
+
             removeBattery(_currentBattery.id);
             addBattery(res);
         });
