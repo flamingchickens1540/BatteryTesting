@@ -11,10 +11,14 @@ module.exports = {
         "/test/timestamps" : req => dbTestsQueries.getTimestamps(req.query["test-id"])
     },
     put : {
-        "/battery" : async req => {
+        "/battery" : req => {
             const body = req.body;
+            const batteryId = req.query["battery-id"];
+            
+            if(batteryId)
+                return dbBatteryQueries.editBattery(batteryId, body.batteryName, body.batteryDate, body.batteryDescription ?? "");
 
-            return await dbBatteryQueries.addBattery(body.batteryName, body.batteryDate, body.batteryDescription ?? "");
+            return dbBatteryQueries.addBattery(body.batteryName, body.batteryDate, body.batteryDescription ?? "");
         },
         "/battery/remove" : req => dbBatteryQueries.removeBattery(req.query["battery-id"]),
         "/test/log" : async req => {

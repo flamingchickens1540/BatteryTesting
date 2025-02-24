@@ -17,6 +17,10 @@ async function addBattery(name, date, description) {
     return await await database.execute(`SELECT id, name, date, description FROM ${BATTERIES_TABLES} WHERE name=?;`, [name], result => result[0]);
 }
 
+function editBattery(id, name, date, description) {
+    return database.execute(`UPDATE ${BATTERIES_TABLES} SET name = ?, date = DATE(?), description = ? WHERE id = ?`, [name, date, description, id], () => {});
+}
+
 // Might not work due to foreign keys
 function removeBattery(id) {
     // if(id == undefined)
@@ -46,6 +50,7 @@ function setCapacity(id, capacity, startVoltage) {
 module.exports = {
     getBattery,
     addBattery,
+    editBattery,
     removeBattery,
     getBatteries,
     getBatteryDates,
