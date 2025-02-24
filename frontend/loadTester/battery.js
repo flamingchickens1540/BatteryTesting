@@ -56,7 +56,7 @@
         
         const timestamps = (await getTimestamps()).timestamps.map(timestamp => `${timestamp.time - test.startTime},${timestamp.voltage},${timestamp.current}\n`);
         const a = document.createElement("a");
-        const blob = new Blob([`Battery Name,,${getSelectedBattery().name}\n`, `Test Name,,${test.name}\n`, `Test Duration (s),,${test.duration}\n`, `Capacity (wH),,${test.capacity}\n`,`Idle Voltage (V),,${test.startVoltage}\n`,`Voltage Max (V),,${test.maxVoltage}\n`, `Voltage Min (V),,${test.minVoltage}\n`, `Current Max (A),,${test.maxCurrent}\n`, `Current Min (A),,${test.minCurrent}\n`, "\nTimestamps\n", "Time,Voltage,Current\n", ...timestamps], {type: "text/plain"});
+        const blob = new Blob([`Battery Name,,${getSelectedBattery().name}\n`, `Test Name,,${test.name}\n`, `Test Duration (s),,${test.duration}\n`, `Capacity (Wh),,${test.capacity}\n`,`Idle Voltage (V),,${test.startVoltage}\n`,`Voltage Max (V),,${test.maxVoltage}\n`, `Voltage Min (V),,${test.minVoltage}\n`, `Current Max (A),,${test.maxCurrent}\n`, `Current Min (A),,${test.minCurrent}\n`, "\nTimestamps\n", "Time,Voltage,Current\n", ...timestamps], {type: "text/plain"});
 
         a.href = URL.createObjectURL(blob);
         a.download = `${test.name}.csv`;
