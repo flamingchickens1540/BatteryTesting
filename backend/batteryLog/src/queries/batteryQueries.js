@@ -3,18 +3,25 @@ const database = require("../database.js");
 const BATTERIES_TABLES = "Batteries";
 
 function getBattery(batteryId) {
+    // if(batteryId == undefined)
+    //     return Error("Invalid Data");
+
     return database.execute(`SELECT * FROM ${BATTERIES_TABLES} WHERE id=?;`, [batteryId], result => result[0]);
 }
 
 async function addBattery(name, date, description) {
-    // if(typeof name != "string" || typeof date != "string" || typeof description != "string")
-    //     return Error("Invalid Data");
+    if(typeof name != "string" || typeof date != "string" || typeof description != "string")
+        return Error("Invalid Data");
+
     await database.execute(`INSERT INTO ${BATTERIES_TABLES} (name, date, description) VALUES(?, DATE(?), ?);`, [name, date, description], () => {});
     return await await database.execute(`SELECT id, name, date, description FROM ${BATTERIES_TABLES} WHERE name=?;`, [name], result => result[0]);
 }
 
 // Might not work due to foreign keys
 function removeBattery(id) {
+    // if(id == undefined)
+    //     return Error("Invalid Data");
+
     return database.execute(`DELETE FROM ${BATTERIES_TABLES} WHERE id=?;`, [id], () => id);
 }
 
@@ -32,7 +39,7 @@ function getBatteryDates() {
     return database.execute(`SELECT id, date FROM ${BATTERIES_TABLES};`, [], result => result);
 }
 
-function setCapacity(id, capacity) {
+function setCapacity(id, capacity) {    
     return database.execute(`UPDATE ${BATTERIES_TABLES} SET capacity = ? WHERE id = ?`, [capacity, id], () => "Success");
 }
 

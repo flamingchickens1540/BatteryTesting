@@ -9,14 +9,18 @@ Object.entries(require("./requests.js")).forEach(method => {
     
     Object.entries(requests).forEach(request => {
         requestMethod(request[0], async (req, res) => {
-            const result = await request[1](req);
+            try {
+                const result = await request[1](req);
 
-            if(result instanceof Error) {
-                console.error(result);
-                return res.sendStatus(500);
+                if(result instanceof Error) {
+                    throw result;
+                    return res.sendStatus(500);
+                }
+
+                res.send(result);
+            } catch (e) {
+                console.error(e);
             }
-
-            res.send(result);
         });
     });
 });

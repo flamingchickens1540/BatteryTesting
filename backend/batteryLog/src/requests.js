@@ -20,7 +20,10 @@ module.exports = {
         "/test/log" : async req => {
             const body = req.body;
             
-            return await dbBatteryQueries.setCapacity(req.query["battery-id"], await dbTestsQueries.logTest(req.query["battery-id"], body.time, body.name, body.startVoltage, body.success, body.timestamps));
+            return await dbBatteryQueries.setCapacity(
+                req.query["battery-id"], 
+                await dbTestsQueries.logTest(req.query["battery-id"], body.time, body.name, body.startVoltage, body.success, body.timestamps)
+            );
         }
     }
 }
