@@ -42,11 +42,11 @@
     }
 
     const addBattery = function() {
-        addBatteryProfile(document.querySelector("#info #name input").value, document.querySelector("#info #date input").value, document.querySelector("#info #description textarea").value).then(fillBatteryList);
+        addBatteryProfile(document.querySelector("#info #name input").value, document.querySelector("#info #date input").value, document.querySelector("#info #description input").value).then(fillBatteryList);
     }
 
     const editBattery = function() {
-        editBatteryProfile(document.querySelector("#info #name input").value, document.querySelector("#info #date input").value, document.querySelector("#info #description textarea").value).then(fillBatteryList);
+        editBatteryProfile(document.querySelector("#info #name input").value, document.querySelector("#info #date input").value, document.querySelector("#info #description input").value).then(fillBatteryList);
     }
 
     document.querySelector("#select .list").addEventListener("change", event => switchBattery(event.target.value));
