@@ -14,8 +14,8 @@
         };
     }
 
-    async function logTest(success, timestamps) {
-        fetch(`/BatteryTestingAPI/test/log/?battery-id=${_currentTest.batteryId}`, {method:"PUT", mode:"cors", headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
+    function logTest(success, timestamps) {
+        return fetch(`/BatteryTestingAPI/test/log/?battery-id=${_currentTest.batteryId}`, {method:"PUT", mode:"cors", headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
             time : _currentTest.startTime,
             name : _currentTest.name,
             startVoltage : _currentTest.startVoltage,
