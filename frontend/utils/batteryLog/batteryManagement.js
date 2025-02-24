@@ -25,7 +25,7 @@
             batteryDate : date,
             batteryDescription : description
         })}).then(res => res.json()).then(res => {
-            removeBattery(_currentBattery);
+            removeBattery(_currentBattery.id);
             addBattery(res);
         });
     }

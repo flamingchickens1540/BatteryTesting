@@ -8,8 +8,9 @@
     function fillBatteryList() {
         const batteryNamesElement = document.querySelector("#select .list");
 
-        batteryNamesElement.childNodes.forEach(batteryNamesElement.removeChild, batteryNamesElement);
-
+        for(const child of batteryNamesElement.children)
+            batteryNamesElement.removeChild(child);
+        
         getBatteries().map(battery => {
             const element = document.createElement("option");
             element.value = battery.name;
