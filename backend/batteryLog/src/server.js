@@ -13,8 +13,8 @@ Object.entries(require("./requests.js")).forEach(method => {
                 const result = await request[1](req);
 
                 if(result instanceof Error) {
+                    res.sendStatus(500);
                     throw result;
-                    return res.sendStatus(500);
                 }
 
                 res.send(result);
