@@ -10,7 +10,7 @@
 
         for(const child of batteryNamesElement.children)
             batteryNamesElement.removeChild(child);
-        
+
         getBatteries().map(battery => {
             const element = document.createElement("option");
             element.value = battery.name;
@@ -28,7 +28,7 @@
     const showBatteryInfo = function() {
         const battery = getBattery();
 
-        const date = new Date(Date.parse("2025-02-22T08:00:00.000Z"));
+        const date = new Date(Date.parse(battery.date));
 
         document.querySelector("#info #name input").value = battery.name;
         document.querySelector("#info #date input").value = `${date.getFullYear()}-${("0" + (date.getMonth() + 1)).slice(-2)}-${("0" + date.getDate()).slice(-2)}`;
