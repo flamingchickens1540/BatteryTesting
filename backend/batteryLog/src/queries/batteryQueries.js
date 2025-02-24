@@ -18,7 +18,7 @@ async function addBattery(name, date, description) {
 }
 
 async function editBattery(id, name, date, description) {
-    await database.execute(`UPDATE ${BATTERIES_TABLES} SET name = ?, date = DATE(?), description = ? WHERE id = ?`, [name, date, description, id], () => {});
+    await database.execute(`UPDATE ${BATTERIES_TABLES} SET name = ?, date = DATE(?), description = ? WHERE id = ?`, [name, String(date), description, id], () => {});
     return await database.execute(`SELECT id, name, date, description FROM ${BATTERIES_TABLES} WHERE name=?;`, [name], result => result[0]);
 }
 

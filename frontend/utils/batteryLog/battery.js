@@ -21,6 +21,7 @@
 
     function removeBattery(batteryId) {
         delete _batteryList[_batteryList.indexOf(_batteryList.find(battery => battery.id == batteryId))];
+        _batteryList = _batteryList.filter(battery => battery);
     }
 
     var selectBattery = async function(batteryName) {
