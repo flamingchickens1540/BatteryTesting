@@ -39,8 +39,8 @@ function getBatteryDates() {
     return database.execute(`SELECT id, date FROM ${BATTERIES_TABLES};`, [], result => result);
 }
 
-function setCapacity(id, capacity) {    
-    return database.execute(`UPDATE ${BATTERIES_TABLES} SET capacity = ? WHERE id = ?`, [capacity, id], () => "Success");
+function setCapacity(id, capacity, startVoltage) {    
+    return database.execute(`UPDATE ${BATTERIES_TABLES} SET capacity = ?, startVoltage = ? WHERE id = ?`, [capacity, startVoltage, id], () => "Success");
 }
 
 module.exports = {

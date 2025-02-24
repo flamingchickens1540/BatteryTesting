@@ -22,7 +22,8 @@ module.exports = {
             
             return await dbBatteryQueries.setCapacity(
                 req.query["battery-id"], 
-                await dbTestsQueries.logTest(req.query["battery-id"], body.time, body.name, body.startVoltage, body.success, body.timestamps)
+                await dbTestsQueries.logTest(req.query["battery-id"], body.time, body.name, body.startVoltage, body.success, body.timestamps),
+                body.startVoltage
             );
         }
     }
