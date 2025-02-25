@@ -50,7 +50,7 @@
 
             // check current
             if(readings.current <= 0.1) {
-                logTest(true);
+                logTest(true, timestamps);
                 return finishBatteryTesting();
             }
 
