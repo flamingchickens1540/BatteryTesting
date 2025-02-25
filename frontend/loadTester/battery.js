@@ -24,7 +24,7 @@
         while(testNamesElement.children[0])
             testNamesElement.removeChild(testNamesElement.children[0]);
         
-        const tests = getTests().sort((a, b) => a.startTime - b.startTime);
+        const tests = getTests().sort((a, b) => b.startTime - a.startTime);
         tests.map(test => {
             const element = document.createElement("option");
             element.value = test.startTime;
