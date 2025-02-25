@@ -46,8 +46,9 @@ async function logTest(batteryId, time, name, startVoltage, success, timestamps)
 
     console.log([batteryId, time, timestamps[timestamps.length-1].time - time, name.replaceAll('"', ''), startVoltage, capacity, success ? 1 : 0, CODE_VERSION]);
     await database.execute(`INSERT INTO ${TESTS_TABLE} (batteryId, startTime, duration, name, startVoltage, capacity, success, codeVersion) VALUES(?, ?, ?, ?, ?, ?, ?, ?);`, [batteryId, time, timestamps[timestamps.length-1].time - time, name.replaceAll('"', ''), startVoltage, capacity, success ? 1 : 0, CODE_VERSION], () => {});
-
+    
     for(const timestamp of timestamps) {
+        console.log("hi");
         const result = await insertTimestamp(Number(time), Number(timestamp.time), Number(timestamp.voltage), Number(timestamp.current));
 
         if(result instanceof Error)
