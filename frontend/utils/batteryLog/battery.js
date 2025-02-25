@@ -11,7 +11,8 @@
         return _batteryList.map(battery => ({
             name : battery.name,
             capacity : battery.capacity,
-            date : battery.date
+            date : battery.date,
+            startVoltage : battery.startVoltage
         }));
     }
     
