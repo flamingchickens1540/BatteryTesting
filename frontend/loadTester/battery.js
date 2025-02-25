@@ -42,7 +42,7 @@
 
         const test = getTest();
 
-        document.querySelector("#test #info #duration").innerText = test.duration;
+        document.querySelector("#test #info #duration").innerText = test.duration / 1000;
         document.querySelector("#test #info #startVoltage").innerText = test.startVoltage;
         document.querySelector("#test #info #capacity").innerText = test.capacity;
         document.querySelector("#test #info #minVoltage").innerText = test.minVoltage;

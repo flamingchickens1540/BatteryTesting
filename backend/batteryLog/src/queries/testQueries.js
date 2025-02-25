@@ -34,6 +34,7 @@ function insertTimestamp(testId, time, voltage, current) {
 
 async function logTest(batteryId, time, name, startVoltage, success, timestamps) {
     const duration = timestamps[timestamps.length-1].time - time;
+    
     let lastTime = time;
     timestamps.forEach(timestamp => {
         const timestampTime = timestamp.time;
