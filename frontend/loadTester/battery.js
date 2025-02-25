@@ -20,6 +20,9 @@
         document.querySelector("#battery .name").innerText = batteryName;
 
         const testNamesElement = document.querySelector("#test .list");
+
+        while(testNamesElement.children[0])
+            testNamesElement.removeChild(testNamesElement.children[0]);
         
         const tests = getTests().sort((a, b) => a.startTime - b.startTime);
         tests.map(test => {
