@@ -29,7 +29,7 @@ function insertTimestamp(testId, time, voltage, current) {
     // if(testId == undefined)
     //     return Error("Invalid Data");
 
-    return database.execute(`INSERT INTO ${TIMESTAMPS_TABLE} VALUES(?, ?, ?, ?)`, [testId, time, voltage, current], () => time);
+    return database.execute(`INSERT INTO ${TIMESTAMPS_TABLE} (testId, time, voltage, current) VALUES(?, ?, ?, ?)`, [testId, time, voltage, current], () => time);
 }
 
 async function logTest(batteryId, time, name, startVoltage, success, timestamps) {
@@ -47,7 +47,7 @@ async function logTest(batteryId, time, name, startVoltage, success, timestamps)
     await database.execute(`INSERT INTO ${TESTS_TABLE} (batteryId, startTime, duration, name, startVoltage, capacity, success, codeVersion) VALUES(?, ?, ?, ?, ?, ?, ?, ?);`, [batteryId, time, timestamps[timestamps.length-1].time - time, name.replaceAll('"', ''), startVoltage, capacity, success ? 1 : 0, CODE_VERSION], () => {});
 
     for(const timestamp of timestamps) {
-        const result = await insertTimestamp(time, Number(timestamp.time), Number(timestamp.voltage), Number(timestamp.current));
+        const result = await insertTimestamp(Number(time), Number(timestamp.time), Number(timestamp.voltage), Number(timestamp.current));
 
         if(result instanceof Error)
             return result;
