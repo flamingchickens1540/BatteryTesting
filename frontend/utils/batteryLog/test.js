@@ -8,6 +8,10 @@
         return fetch(`/BatteryTestingAPI/battery/tests/?battery-id=${_batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json()).then(json => _tests = json.tests);
     }
 
+    function getBatteryId() {
+        return _batteryId;
+    }
+
     function getTests() {
         return _tests.map(test => ({
             name : test.name,

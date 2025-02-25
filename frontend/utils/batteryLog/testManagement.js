@@ -7,7 +7,7 @@
 
     function createTest(name, time, startVoltage) {
         _currentTest = {
-            batteryId : _currentTest,
+            batteryId : getBatteryId(),
             name,
             startTime : time,
             startVoltage
