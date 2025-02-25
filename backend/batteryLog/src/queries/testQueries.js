@@ -33,6 +33,7 @@ function insertTimestamp(testId, time, voltage, current) {
 }
 
 async function logTest(batteryId, time, name, startVoltage, success, timestamps) {
+    const duration = timestamps[timestamps.length-1].time - time;
     let lastTime = time;
     timestamps.forEach(timestamp => {
         const timestampTime = timestamp.time;
@@ -44,7 +45,7 @@ async function logTest(batteryId, time, name, startVoltage, success, timestamps)
 
     const capacity = timestamps.map(timestamp => timestamp.current * timestamp.voltage * timestamp.time).reduce((total, watt) => total + watt) / 60 / 60 / 1000;
 
-    await database.execute(`INSERT INTO ${TESTS_TABLE} (batteryId, startTime, duration, name, startVoltage, capacity, success, codeVersion) VALUES(?, ?, ?, ?, ?, ?, ?, ?);`, [batteryId, time, timestamps[timestamps.length-1].time, name.replaceAll('"', ''), startVoltage, capacity, success ? 1 : 0, CODE_VERSION], () => {});
+    await database.execute(`INSERT INTO ${TESTS_TABLE} (batteryId, startTime, duration, name, startVoltage, capacity, success, codeVersion) VALUES(?, ?, ?, ?, ?, ?, ?, ?);`, [batteryId, time, duration, name.replaceAll('"', ''), startVoltage, capacity, success ? 1 : 0, CODE_VERSION], () => {});
     
     for(const timestamp of timestamps) {
         const result = await insertTimestamp(Number(time), Number(timestamp.time), Number(timestamp.voltage), Number(timestamp.current));
