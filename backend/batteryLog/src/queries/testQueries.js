@@ -44,6 +44,7 @@ async function logTest(batteryId, time, name, startVoltage, success, timestamps)
 
     const capacity = timestamps.map(timestamp => timestamp.current * timestamp.voltage * timestamp.time).reduce((total, watt) => total + watt) / 60 / 60 / 1000;
 
+    console.log([batteryId, time, timestamps[timestamps.length-1].time - time, name.replaceAll('"', ''), startVoltage, capacity, success ? 1 : 0, CODE_VERSION]);
     await database.execute(`INSERT INTO ${TESTS_TABLE} (batteryId, startTime, duration, name, startVoltage, capacity, success, codeVersion) VALUES(?, ?, ?, ?, ?, ?, ?, ?);`, [batteryId, time, timestamps[timestamps.length-1].time - time, name.replaceAll('"', ''), startVoltage, capacity, success ? 1 : 0, CODE_VERSION], () => {});
 
     for(const timestamp of timestamps) {
