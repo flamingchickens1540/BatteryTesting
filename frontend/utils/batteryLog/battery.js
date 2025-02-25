@@ -30,7 +30,9 @@
 
         _currentBattery = {
             name : batteryInfo.name,
-            capacity : batteryInfo.capacity
+            capacity : batteryInfo.capacity,
+            startVoltage : batteryInfo.startVoltage,
+            date : batteryInfo.date
         };
 
         if(typeof useBattery == "function")
@@ -38,5 +40,9 @@
 
         if(typeof loadTests == "function")
             await loadTests(batteryInfo);
+    }
+
+    function getSelectedBattery() {
+        return _currentBattery;
     }
 }
