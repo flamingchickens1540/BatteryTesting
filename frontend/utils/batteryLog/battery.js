@@ -15,8 +15,8 @@
         return Object.values(_batteryList);
     }
     
-    function addBattery(battery, loaded) {
-        (loaded ? _loadedBatteries : _batteryList)[battery.name] = battery;
+    function addBattery(battery) {
+        _batteryList[battery.name] = battery;
     }
 
     function removeBattery(batteryId) {
