@@ -34,7 +34,7 @@
         const batteryId = _currentBatteryId;
 
         if(isBatteryLoaded())
-            return _batteryList[batteryId];
+            return _loadedBatteries[batteryId];
 
         return fetch(`/BatteryTestingAPI/battery/?battery-id=${batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
         .then(res => res.json())

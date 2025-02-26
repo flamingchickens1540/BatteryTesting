@@ -35,7 +35,7 @@
         testNamesElement.label = tests[0].name;
         testNamesElement.value = tests[0].startTime;
 
-        switchTest(testNamesElement.value);
+        switchTest(tests[0].startTime);
     });
 
     document.querySelector("#test .list").addEventListener("change", event => switchTest(event.target.value));

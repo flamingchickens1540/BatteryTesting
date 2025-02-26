@@ -25,7 +25,7 @@
         const testId = _currentTestId;
 
         if(isTestLoaded())
-            return _tests[testId];
+            return _loadedTests[testId];
 
         return fetch(`/BatteryTestingAPI/test/?test-id=${testId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
         .then(res => res.json())
