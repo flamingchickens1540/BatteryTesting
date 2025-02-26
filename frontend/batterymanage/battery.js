@@ -13,14 +13,14 @@
 
         getBatteries().map(battery => {
             const element = document.createElement("option");
-            element.value = battery.name;
+            element.value = battery.id;
             element.label = battery.name;
             return element;
         }).forEach(batteryNamesElement.appendChild, batteryNamesElement);
     }
 
-    const switchBattery = function(batteryName) {
-        selectBattery(batteryName);
+    const switchBattery = function(batteryId) {
+        selectBattery(batteryId);
 
         showBatteryInfo();
     }
