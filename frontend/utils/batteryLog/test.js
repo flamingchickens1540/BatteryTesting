@@ -29,9 +29,7 @@
 
         return fetch(`/BatteryTestingAPI/test/?test-id=${testId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
         .then(res => res.json())
-        .then(test => {
-            _loadedTests[testId] = test;
-        });
+        .then(test => _loadedTests[testId] = test);
     }
 
     function getTest() {
