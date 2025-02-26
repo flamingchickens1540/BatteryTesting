@@ -1,48 +1,51 @@
 {
-    let _batteryList = [];
+    let _batteryList = {};
 
-    let _currentBattery;
+    let _loadedBatteries = {};
+
+    let _currentBatteryId;
 
     var batteryInit = (async function() {
-        _batteryList = (await fetch("/BatteryTestingAPI/battery/all", {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json())).batteries;
+        return fetch("/BatteryTestingAPI/battery/all", {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
+        .then(res => res.json())
+        .then(res => res.batteries.forEach(battery => _batteryList[battery.id] = battery));
     })();
 
     function getBatteries() {
-        return _batteryList.map(battery => ({
-            name : battery.name,
-            capacity : battery.capacity,
-            date : battery.date,
-            startVoltage : battery.startVoltage
-        }));
+        return Object.values(_batteryList);
     }
     
     function addBattery(battery) {
-        _batteryList.push(battery);
+        _batteryList[battery.name] = battery;
     }
 
     function removeBattery(batteryId) {
-        delete _batteryList[_batteryList.indexOf(_batteryList.find(battery => battery.id == batteryId))];
-        _batteryList = _batteryList.filter(battery => battery);
+        delete _batteryList[batteryId];
     }
 
-    var selectBattery = async function(batteryName) {
-        const batteryInfo = _batteryList.find(battery => battery.name == batteryName);
-
-        _currentBattery = {
-            name : batteryInfo.name,
-            capacity : batteryInfo.capacity,
-            startVoltage : batteryInfo.startVoltage,
-            date : batteryInfo.date
-        };
-
-        if(typeof useBattery == "function")
-            await useBattery(batteryInfo);
+    function selectBattery(batteryId) {
+        _currentBatteryId = batteryId;
 
         if(typeof loadTests == "function")
-            await loadTests(batteryInfo);
+            return loadTests();
     }
 
-    function getSelectedBattery() {
-        return _currentBattery;
+    function loadBattery() {
+        const batteryId = _currentBatteryId;
+
+        if(isBatteryLoaded())
+            return _batteryList[batteryId];
+
+        return fetch(`/BatteryTestingAPI/battery/?battery-id=${batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
+        .then(res => res.json())
+        .then(res => _loadedBatteries[batteryId] = res);
+    }
+
+    function getBattery() {
+        return _loadedBatteries[_currentBatteryId] ?? _batteryList[_currentBatteryId];
+    }
+
+    function isBatteryLoaded() {
+        return !!_loadedBatteries[_currentBatteryId];
     }
 }

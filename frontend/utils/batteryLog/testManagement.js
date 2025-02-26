@@ -1,34 +1,15 @@
 {
-    let _currentTest;
-
-    function useTest(test) {
-        _currentTest = test;
-    }
-
-    function createTest(name, time, startVoltage) {
-        _currentTest = {
-            batteryId : getBatteryId(),
+    function logTest(name, time, startVoltage, success, timestamps) {
+        return fetch(`/BatteryTestingAPI/test/log/?battery-id=${getBattery().id}`, {method:"PUT", mode:"cors", headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
+            time,
             name,
-            startTime : time,
-            startVoltage
-        };
-    }
-
-    function logTest(success, timestamps) {
-        return fetch(`/BatteryTestingAPI/test/log/?battery-id=${_currentTest.batteryId}`, {method:"PUT", mode:"cors", headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
-            time : _currentTest.startTime,
-            name : _currentTest.name,
-            startVoltage : _currentTest.startVoltage,
+            startVoltage,
             success,
             timestamps
         })});
     }
 
-    function getTest() {
-        return _currentTest;
-    }
-
     function getTimestamps() {
-        return fetch(`/BatteryTestingAPI/test/timestamps/?test-id=${_currentTest.startTime}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json());
+        return fetch(`/BatteryTestingAPI/test/timestamps/?test-id=${getTest().startTime}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}}).then(res => res.json());
     }
 }

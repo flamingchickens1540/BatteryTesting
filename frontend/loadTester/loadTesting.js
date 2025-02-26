@@ -34,11 +34,10 @@
     async function testBattery() {
         document.querySelector("#test .start").disabled = true;
         
-        createTest(
-            new Date().toUTCString(), 
-            Date.now(), 
-            (await getNextReading()).voltage
-        );
+        const 
+            name = new Date().toUTCString(), 
+            time = Date.now(), 
+            startVoltage = (await getNextReading()).voltage;
 
         setupConfigs();
 
@@ -50,7 +49,7 @@
 
             // check current
             if(readings.current <= 0.1) {
-                logTest(true, timestamps);
+                logTest(name, time, startVoltage, true, timestamps);
                 return finishBatteryTesting();
             }
 

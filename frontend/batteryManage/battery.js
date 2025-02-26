@@ -19,14 +19,14 @@
         }).forEach(batteryNamesElement.appendChild, batteryNamesElement);
     }
 
-    const switchBattery = async function(batteryName) {
-        await selectBattery(batteryName);
+    const switchBattery = function(batteryName) {
+        selectBattery(batteryName);
 
         showBatteryInfo();
     }
 
-    const showBatteryInfo = function() {
-        const battery = getBattery();
+    const showBatteryInfo = async function() {
+        const battery = await loadBattery();
 
         const date = new Date(Date.parse(battery.date));
 
