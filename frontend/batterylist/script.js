@@ -26,10 +26,10 @@
             batteryItemElement.appendChild(startVoltageElement);
 
             const capacityElement = document.createElement("span");
-            capacityElement.innerText = battery.capacity;
+            capacityElement.innerText = battery.capacity.toLocaleString(2);
             batteryItemElement.appendChild(capacityElement);
 
-            
+
             batteryListElement.appendChild(batteryItemElement);
         })
     }
