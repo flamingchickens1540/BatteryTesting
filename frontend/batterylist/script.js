@@ -26,7 +26,8 @@
             batteryItemElement.appendChild(startVoltageElement);
 
             const capacityElement = document.createElement("span");
-            capacityElement.innerText = Number(battery.capacity).toLocaleString(2);
+            if(battery.capacity != null)
+                capacityElement.innerText = battery.capacity.toLocaleString(2);
             batteryItemElement.appendChild(capacityElement);
 
 
