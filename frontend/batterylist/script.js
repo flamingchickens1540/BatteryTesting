@@ -29,6 +29,7 @@
             capacityElement.innerText = battery.capacity;
             batteryItemElement.appendChild(capacityElement);
 
+            
             batteryListElement.appendChild(batteryItemElement);
         })
     }
