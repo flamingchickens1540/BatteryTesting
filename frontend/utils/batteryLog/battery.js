@@ -15,12 +15,13 @@
         return Object.values(_batteryList);
     }
     
-    function addBattery(battery) {
-        _batteryList[battery.name] = battery;
+    function addBattery(battery, loaded) {
+        (loaded ? _loadedBatteries : _batteryList)[battery.name] = battery;
     }
 
     function removeBattery(batteryId) {
         delete _batteryList[batteryId];
+        delete _loadedBatteries[batteryId];
     }
 
     function selectBattery(batteryId) {

@@ -22,7 +22,7 @@
             batteryDescription : description
         })}).then(res => res.json()).then(res => {
             removeBattery(batteryId);
-            addBattery(res);
+            addBattery(res, true);
         });
     }
 }
