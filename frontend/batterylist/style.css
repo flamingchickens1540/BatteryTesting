@@ -15,6 +15,7 @@ section {
     display: flex; 
     flex-direction: row; 
     justify-content: stretch;
+    padding: 5px;
 }
 
 .batteryItem span {
