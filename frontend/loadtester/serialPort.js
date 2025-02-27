@@ -86,7 +86,7 @@
                         writer.releaseLock();
                         reader.releaseLock();
                         listen();
-                    }, 10000);
+                    }, 2000);
 
                     const { value, done } = await reader.read();
 
