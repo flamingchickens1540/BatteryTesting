@@ -38,7 +38,7 @@ section {
 }
 
 #batteryListScreen .list .itemSelected {
-    background-color: lime;
+    background-color: skyblue;
     color: white;
 }
 
