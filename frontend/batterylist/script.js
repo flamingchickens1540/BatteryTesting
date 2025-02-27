@@ -33,9 +33,19 @@
             batteryItemElement.addEventListener("click", () => {
                 batteryListElement.childNodes.forEach(batteryItem => batteryItem.className = "item");
                 batteryItemElement.className = "item itemSelected";
+
+                switchBattery(batteryItemElement.batteryId);
             });
 
             batteryListElement.appendChild(batteryItemElement);
         });
+    }
+
+    const switchBattery = async function(batteryId) {
+        selectBattery(batteryId);
+
+        const battery = await loadBattery();
+
+        document.querySelector("#batteryDescription .description").innerText = battery.description;
     }
 }
