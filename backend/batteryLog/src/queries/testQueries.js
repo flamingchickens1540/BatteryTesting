@@ -2,7 +2,7 @@ const database = require("../database.js");
 
 const TESTS_TABLE = "Tests";
 const TIMESTAMPS_TABLE = "Timestamps";
-const CODE_VERSION = 0;
+const CODE_VERSION = 1;
 
 function getBatteryTests(batteryId) {
     // if(batteryId == undefined)
@@ -38,8 +38,12 @@ async function logTest(batteryId, time, name, startVoltage, success, timestamps)
     timestamps.forEach(timestamp => timestamp.time -= time);
 
     let lastTime = 0;
+    let lastWatt = 0;
     const capacity = timestamps.map(timestamp => {
-        const energy = timestamp.current * timestamp.voltage * (timestamp.time - lastTime);
+        const watt = timestamp.current * timestamp.voltage;
+        
+        const energy = (lastWatt + watt) / 2 * (timestamp.time - lastTime);
+        
         lastTime = timestamp.time;
 
         return energy;
