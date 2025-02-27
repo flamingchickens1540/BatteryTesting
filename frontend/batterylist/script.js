@@ -57,7 +57,7 @@
     }
 
     const loadNotes = async function() {
-        const notes = await fetch(`/BatteryTestingAPI/battery/notes/?battery-id=${batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
+        const notes = await fetch(`/BatteryTestingAPI/battery/notes/?battery-id=${_batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
         .then(res => res.json())
         .then(res => res.notes);
 
