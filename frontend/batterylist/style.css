@@ -1,5 +1,5 @@
 body {
-    font-size: 1.5em;
+    font-size: 2em;
     font-family: "Roboto";
 }
 
@@ -41,11 +41,11 @@ section {
 }
 
 #batteryListScreen .list .item span {
-    width: 300px;
+    width: 20vw;
 }
 
 .batteryItem span {
-    width: 200px;
+    width: 20vw;
 }
 
 #batteryListScreen .columnNames {
@@ -53,6 +53,7 @@ section {
     display: flex; 
     flex-direction: row; 
     justify-content: stretch;
+    padding: 5px;
 }
 
 #batteryDescription {
