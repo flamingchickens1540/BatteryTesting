@@ -26,6 +26,11 @@ section {
     padding: 5px;
 }
 
+.batteryItem {
+    background-color: lime;
+    color: white;
+}
+
 .batteryItem span {
     width: 200px;
 }

@@ -15,7 +15,7 @@
             const batteryItemElement = document.createElement("div");
 
             batteryItemElement.className = "batteryItem";
-            batteryItemElement.id = battery.id;
+            batteryItemElement.batteryId = battery.id;
 
             const nameElement = document.createElement("span");
             nameElement.innerText = battery.name;
@@ -30,8 +30,12 @@
                 capacityElement.innerText = battery.capacity.toLocaleString(2);
             batteryItemElement.appendChild(capacityElement);
 
+            batteryItemElement.addEventListener("click", () => {
+                batteryListElement.childNodes.forEach(batteryItem => batteryItem.className = "batteryItem");
+                batteryItemElement.className = "batteryItem batterySelectedItem";
+            });
 
             batteryListElement.appendChild(batteryItemElement);
-        })
+        });
     }
 }
