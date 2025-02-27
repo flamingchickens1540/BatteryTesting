@@ -1,5 +1,6 @@
 const dbBatteryQueries = require("./queries/batteryQueries.js");
 const dbTestsQueries = require("./queries/testQueries.js");
+const dbRecordQueries = require("./queries/recordQueries.js");
 
 module.exports = {
     get : {
@@ -8,7 +9,8 @@ module.exports = {
         "/battery/dates" : dbBatteryQueries.getBatteryDates,
         "/battery/tests" : req => dbTestsQueries.getBatteryTests(req.query["battery-id"]),
         "/test" : req => dbTestsQueries.getTest(req.query["test-id"]),
-        "/test/timestamps" : req => dbTestsQueries.getTimestamps(req.query["test-id"])
+        "/test/timestamps" : req => dbTestsQueries.getTimestamps(req.query["test-id"]),
+        "/battery/notes" : req => dbRecordQueries.getNotesFromBattery(req.queries["battery-id"])
     },
     put : {
         "/battery" : req => {
@@ -29,6 +31,11 @@ module.exports = {
                 await dbTestsQueries.logTest(req.query["battery-id"], body.time, body.name, body.startVoltage, body.success, body.timestamps),
                 body.startVoltage
             );
+        },
+        "/note" : async req => {
+            const body = req.body;
+            
+            return await dbRecordQueries.recordNote(req.queries["battery-id"], body.time, body.note);
         }
     }
 }

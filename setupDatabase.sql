@@ -44,3 +44,12 @@ CREATE TABLE Timestamps (
 
     FOREIGN KEY (testId) REFERENCES Tests(startTime)
 );
+
+-- Create Notes table
+CREATE TABLE Battery_Notes (
+    batteryId INT UNSIGNED NOT NULL,
+    time BIGINT UNSIGNED NOT NULL,
+    note VARCHAR(1023) NOT NULL,
+
+    PRIMARY KEY (batteryId, time)
+);

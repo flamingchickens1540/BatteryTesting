@@ -18,6 +18,10 @@ function getTest(testId) {
     return database.execute(`SELECT batteryId, startTime, name, success, capacity, codeVersion, startVoltage, duration, (SELECT MIN(voltage) FROM ${TIMESTAMPS_TABLE} WHERE testId=?) AS minVoltage, (SELECT MAX(voltage) FROM ${TIMESTAMPS_TABLE} WHERE testId=?) AS maxVoltage, (SELECT MIN(current) FROM ${TIMESTAMPS_TABLE} WHERE testId=?) AS minCurrent, (SELECT MAX(current) FROM ${TIMESTAMPS_TABLE} WHERE testId=?) AS maxCurrent FROM ${TESTS_TABLE} WHERE startTime=?;`, [testId, testId, testId, testId, testId], result => result[0]);
 }
 
+function removeTest(testId) {
+    return database.execute(`DELETE FROM ${TESTS_TABLE} WHERE id=?;`, [testId], () => testId);
+}
+
 function getTimestamps(testId) {
     // if(testId == undefined)
     //     return Error("Invalid Data");
@@ -43,7 +47,7 @@ async function logTest(batteryId, time, name, startVoltage, success, timestamps)
         const watt = timestamp.current * timestamp.voltage;
         
         const energy = (lastWatt + watt) / 2 * (timestamp.time - lastTime);
-        
+
         lastTime = timestamp.time;
 
         return energy;
