@@ -6,7 +6,7 @@
     })();
 
     const fillBatteryList = function() {
-        const batteryListElement = document.querySelector("#batteryList");
+        const batteryListElement = document.querySelector("#batteryListScreen .list");
 
         while(batteryListElement.children[0])
             batteryListElement.removeChild(batteryListElement[0]);
@@ -14,7 +14,7 @@
         getBatteries().forEach(battery => {
             const batteryItemElement = document.createElement("div");
 
-            batteryItemElement.className = "batteryItem";
+            batteryItemElement.className = "item";
             batteryItemElement.batteryId = battery.id;
 
             const nameElement = document.createElement("span");
@@ -31,8 +31,8 @@
             batteryItemElement.appendChild(capacityElement);
 
             batteryItemElement.addEventListener("click", () => {
-                batteryListElement.childNodes.forEach(batteryItem => batteryItem.className = "batteryItem");
-                batteryItemElement.className = "batteryItem batterySelectedItem";
+                batteryListElement.childNodes.forEach(batteryItem => batteryItem.className = "item");
+                batteryItemElement.className = "item itemSelected";
             });
 
             batteryListElement.appendChild(batteryItemElement);

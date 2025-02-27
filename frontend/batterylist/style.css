@@ -14,23 +14,34 @@ section {
     overflow: hidden;
 }
 
-#batterySelection {
+#batteryListScreen .list {
     height: 50vh;
     overflow-y: scroll;
 }
 
-.batteryItem {
+#batteryListScreen .list .item {
     display: flex; 
     flex-direction: row; 
     justify-content: stretch;
     padding: 5px;
 }
 
-.batterySelectedItem {
+.batteryListScreen .list .itemSelected {
     background-color: lime;
     color: white;
 }
 
+#batteryListScreen .list .item span {
+    width: 300px;
+}
+
 .batteryItem span {
     width: 200px;
+}
+
+#batteryListScreen .columnNames {
+    background-color: lightgray; 
+    display: flex; 
+    flex-direction: row; 
+    justify-content: stretch;
 }
