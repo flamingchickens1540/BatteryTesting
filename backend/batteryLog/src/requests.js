@@ -10,7 +10,7 @@ module.exports = {
         "/battery/tests" : req => dbTestsQueries.getBatteryTests(req.query["battery-id"]),
         "/test" : req => dbTestsQueries.getTest(req.query["test-id"]),
         "/test/timestamps" : req => dbTestsQueries.getTimestamps(req.query["test-id"]),
-        "/battery/notes" : req => dbRecordQueries.getNotesFromBattery(req.queries["battery-id"])
+        "/battery/notes" : req => dbRecordQueries.getNotesFromBattery(req.query["battery-id"])
     },
     put : {
         "/battery" : req => {
@@ -35,7 +35,7 @@ module.exports = {
         "/note" : async req => {
             const body = req.body;
             
-            return await dbRecordQueries.recordNote(req.queries["battery-id"], body.time, body.note);
+            return await dbRecordQueries.recordNote(req.query["battery-id"], body.time, body.note);
         }
     }
 }
