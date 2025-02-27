@@ -72,7 +72,7 @@
             noteItemElement.className = "item";
 
             const dateElement = document.createElement("span");
-            dateElement.innerText = new Date(note.time);
+            dateElement.innerText = new Date(note.time).toLocaleString("en-US", {"timeZone" : Intl.DateTimeFormat().resolvedOptions().timeZone});
             noteItemElement.appendChild(dateElement);
 
             const noteElement = document.createElement("p");
