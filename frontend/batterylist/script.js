@@ -5,6 +5,8 @@
         fillBatteryList();
     })();
 
+    let _batteryId;
+
     const fillBatteryList = function() {
         const batteryListElement = document.querySelector("#batteryListScreen .list");
 
@@ -42,10 +44,42 @@
     }
 
     const switchBattery = async function(batteryId) {
-        selectBattery(batteryId);
+        if(_batteryId == batteryId)
+            return;
+
+        selectBattery(_batteryId = batteryId);
 
         const battery = await loadBattery();
 
         document.querySelector("#batteryDescription .description").innerText = battery.description;
+
+        loadNotes();
+    }
+
+    const loadNotes = async function() {
+        const notes = await fetch(`/BatteryTestingAPI/battery/notes/?battery-id=${batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
+        .then(res => res.json())
+        .then(res => res.notes);
+
+        const notesListElement = document.querySelector("#notesListScreen");
+
+        while(notesListElement.children[0])
+            notesListElement.removeChild(notesListElement[0]);
+
+        notes.forEach(note => {
+            const noteItemElement = document.createElement("div");
+
+            noteItemElement.className = "item";
+
+            const dateElement = document.createElement("span");
+            dateElement.innerText = new Date(note.time);
+            noteItemElement.appendChild(dateElement);
+
+            const noteElement = document.createElement("p");
+            noteElement.innerText = note.note;
+            noteItemElement.appendChild(noteElement);
+
+            notesListElement.appendChild(noteItemElement);
+        });
     }
 }
