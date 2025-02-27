@@ -44,7 +44,7 @@ section {
     width: 20vw;
 }
 
-.batteryItem span {
+#batteryListScreen .columnNames span {
     width: 20vw;
 }
 
