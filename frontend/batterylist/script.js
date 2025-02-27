@@ -52,6 +52,7 @@
         const battery = await loadBattery();
 
         document.querySelector("#batteryDescription .description").innerText = battery.description;
+        document.querySelector("#batteryDescription .date").innerText = new Date(battery.date).toLocaleDateString("en-us");
 
         loadNotes();
     }
