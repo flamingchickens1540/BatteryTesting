@@ -1,11 +1,13 @@
 body {
     font-size: 2em;
     font-family: "Roboto";
+    margin: 0px;
 }
 
 section {
     border: 2px black solid;
     border-radius: 10px;
+    margin: 8px;
 }
 
 #batteryListScreen {
