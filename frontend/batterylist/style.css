@@ -26,7 +26,7 @@ section {
     padding: 5px;
 }
 
-.batteryListScreen .list .itemSelected {
+#batteryListScreen .list .itemSelected {
     background-color: lime;
     color: white;
 }
