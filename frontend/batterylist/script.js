@@ -64,7 +64,7 @@
         const notesListElement = document.querySelector("#notesListScreen");
 
         while(notesListElement.children[0])
-            notesListElement.removeChild(notesListElement[0]);
+            notesListElement.removeChild(notesListElement.children[0]);
 
         notes.forEach(note => {
             const noteItemElement = document.createElement("div");
