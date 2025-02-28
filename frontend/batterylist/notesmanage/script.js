@@ -3,5 +3,5 @@
 
     document.querySelector("#batteryName").innerText = battery.name;
 
-    document.querySelector("#batteryName").appendChild(opener.document.querySelector("columnNames"));
+    document.querySelector("#notesContainer").appendChild(opener.document.querySelector("#notesListScreen"));
 }
