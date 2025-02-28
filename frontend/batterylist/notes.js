@@ -25,6 +25,6 @@
 
     document.querySelector("#manageNotes").addEventListener("click", () => {
         if(getBattery())
-            window.open(`notesmanage/`, "Manage NotesWindow", "width=1200,height=600");
+            window.open(`notesmanage/`);
     });
 }
