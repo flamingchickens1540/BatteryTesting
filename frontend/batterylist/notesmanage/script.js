@@ -1,8 +1,7 @@
 {
-    const batteryId = new URLSearchParams(window.location.search).get("battery-id");
+    const battery = opener.getBattery();
 
-    document.querySelector("#add").addEventListener("click", () => fetch(`/BatteryTestingAPI/note/?battery-id=${batteryId}`, {method:"PUT", mode:"cors", headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
-        time : Date.now(),
-        note : document.querySelector("#note").value
-    })}));
+    document.querySelector("#batteryName").innerText = battery.name;
+
+    document.querySelector("#batteryName").appendChild(opener.document.querySelector("columnNames"));
 }

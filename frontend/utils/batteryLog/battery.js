@@ -49,4 +49,6 @@
     function isBatteryLoaded() {
         return !!_loadedBatteries[_currentBatteryId];
     }
+
+    
 }
