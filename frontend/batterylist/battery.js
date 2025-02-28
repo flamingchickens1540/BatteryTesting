@@ -54,6 +54,6 @@
         document.querySelector("#batteryDescription .description").innerText = battery.description;
         document.querySelector("#batteryDate .date").innerText = new Date(battery.date).toLocaleDateString("en-us");
 
-        loadNotes();
+        showNotes();
     }
 }
