@@ -13,7 +13,10 @@
 
         return fetch(`/BatteryTestingAPI/battery/notes/?battery-id=${batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
         .then(res => res.json())
-        .then(res => res.notes.forEach(note => _notes[batteryId][note.time] = note));
+        .then(res => {
+            res.notes.forEach(note => _notes[batteryId][note.time] = note);
+            return _notes[batteryId];
+        });
     }
 
     function getNotes() {
