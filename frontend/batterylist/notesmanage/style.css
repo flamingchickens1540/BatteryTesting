@@ -5,3 +5,11 @@
     border-radius: 10px;
     margin: 5px;
 }
+
+#addNoteText {
+    display: block;
+    resize: none;
+    overflow: hidden;
+    width: 50vw;
+    height: 25vh;
+}

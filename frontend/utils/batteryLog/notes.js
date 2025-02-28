@@ -1,8 +1,6 @@
 {
     let _notes = {};
 
-    let _currentNoteId;
-
     function loadNotes() {
         const batteryId = getBattery().id;
 
@@ -20,21 +18,6 @@
     }
 
     function getNotes() {
-        return Object.values(_notes[getBattery().id]);
-    }
-
-    function selectNote(noteId) {
-        _currentNoteId = noteId;
-    }
-
-    function getNote() {
-        return _notes[getBattery().id][_currentNoteId];
-    }
-
-    function addNote(note) {
-        return fetch(`/BatteryTestingAPI/note/?battery-id=${batteryId}`, {method:"PUT", mode:"cors", headers: {'Content-Type': 'application/json'}, body: JSON.stringify({
-            time : Date.now(),
-            note
-        })})
+        return _notes[getBattery().id];
     }
 }

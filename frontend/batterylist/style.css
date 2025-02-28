@@ -30,11 +30,26 @@ section {
     margin: 5px;
 }
 
+#notesListScreen div {
+    padding: 10px;
+}
+
+#notesListScreen .item p {
+    max-height: 9999px;
+}
+
+#notesListScreen .selected {
+    color: white;
+    background-color: blue;
+    
+}
+
 #batteryListScreen .list .item {
     display: flex; 
     flex-direction: row; 
     justify-content: stretch;
     padding: 5px;
+    max-height: 99999px;
 }
 
 #batteryListScreen .list .itemSelected {
@@ -56,7 +71,6 @@ section {
     flex-direction: row; 
     justify-content: stretch;
     padding: 5px;
-    max-height: 99999px;
 }
 
 #batteryDescription {

@@ -11,15 +11,13 @@
             const noteItemElement = document.createElement("div");
 
             noteItemElement.className = "item";
+            noteItemElement.setAttribute("noteTime", note.time);
+            noteItemElement.note = note.note;
 
-            const dateElement = document.createElement("span");
+            const dateElement = document.createElement("p");
 
-            dateElement.innerText = new Date(note.time).toLocaleString("en-US");
+            dateElement.innerHTML = new Date(note.time).toLocaleString("en-US") + "<br>" + note.note;
             noteItemElement.appendChild(dateElement);
-
-            const noteElement = document.createElement("p");
-            noteElement.innerText = note.note;
-            noteItemElement.appendChild(noteElement);
 
             notesListElement.appendChild(noteItemElement);
         });
@@ -27,6 +25,6 @@
 
     document.querySelector("#manageNotes").addEventListener("click", () => {
         if(getBattery())
-            window.open(`../batterylist/notesmanage/index.html`, "Manage NotesWindow", "width=600,height=300");
+            window.open(`notesmanage/`, "Manage NotesWindow", "width=600,height=300");
     });
 }
