@@ -36,14 +36,10 @@ function insertTimestamp(testId, time, voltage, current) {
     return database.execute(`INSERT INTO ${TIMESTAMPS_TABLE} (testId, time, voltage, current) VALUES(?, ?, ?, ?)`, [testId, time, voltage, current], () => time);
 }
 
-async function logTest(batteryId, time, name, startVoltage, success, timestamps) {
-    const duration = timestamps[timestamps.length-1].time - time;
-    
-    timestamps.forEach(timestamp => timestamp.time -= time);
-
+function computeCapacity(timestamps) {
     let lastTime = 0;
     let lastWatt = 0;
-    const capacity = timestamps.map(timestamp => {
+    return timestamps.map(timestamp => {
         const watt = timestamp.current * timestamp.voltage;
         
         const energy = (lastWatt + watt) / 2 * (timestamp.time - lastTime);
@@ -53,6 +49,18 @@ async function logTest(batteryId, time, name, startVoltage, success, timestamps)
 
         return energy;
     }).reduce((total, watt) => total + watt) / 60 / 60 / 1000;
+}
+
+async function setTestCapacity(id, capacity) {
+    return database.execute(`UPDATE ${TESTS_TABLE} SET capacity = ? WHERE startTime = ?`, [capacity, id], () => "Success");
+}
+
+async function logTest(batteryId, time, name, startVoltage, success, timestamps) {
+    const duration = timestamps[timestamps.length-1].time - time;
+    
+    timestamps.forEach(timestamp => timestamp.time -= time);
+
+    const capacity = computeCapacity(timestamps);
 
     await database.execute(`INSERT INTO ${TESTS_TABLE} (batteryId, startTime, duration, name, startVoltage, capacity, success, codeVersion) VALUES(?, ?, ?, ?, ?, ?, ?, ?);`, [batteryId, time, duration, name.replaceAll('"', ''), startVoltage, capacity, success ? 1 : 0, CODE_VERSION], () => {});
     
@@ -70,5 +78,7 @@ module.exports = {
     getBatteryTests,
     getTimestamps,
     logTest,
-    getTest
+    getTest,
+    computeCapacity,
+    setTestCapacity
 };
