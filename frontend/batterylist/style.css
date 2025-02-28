@@ -1,5 +1,5 @@
 body {
-    font-size: 2em;
+    font-size: 25px;
     font-family: "Roboto";
     margin: 0px;
 }
@@ -28,7 +28,6 @@ section {
     border: 1px gray solid;
     border-radius: 10px;
     margin: 5px;
-    font-size: 2em;
 }
 
 #batteryListScreen .list .item {
@@ -45,12 +44,10 @@ section {
 
 #batteryListScreen .list .item span {
     width: 20vw;
-    font-size: 2em;
 }
 
 #batteryListScreen .columnNames span {
     width: 20vw;
-    font-size: 2em;
 }
 
 #batteryListScreen .columnNames {
