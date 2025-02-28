@@ -56,34 +56,4 @@
 
         loadNotes();
     }
-
-    const loadNotes = async function() {
-        const notes = await fetch(`/BatteryTestingAPI/battery/notes/?battery-id=${_batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
-        .then(res => res.json())
-        .then(res => res.notes);
-
-        const notesListElement = document.querySelector("#notesListScreen");
-
-        while(notesListElement.children[0])
-            notesListElement.removeChild(notesListElement.children[0]);
-
-        notes.forEach(note => {
-            const noteItemElement = document.createElement("div");
-
-            noteItemElement.className = "item";
-
-            const dateElement = document.createElement("span");
-
-            dateElement.innerText = new Date(note.time).toLocaleString("en-US");
-            noteItemElement.appendChild(dateElement);
-
-            const noteElement = document.createElement("p");
-            noteElement.innerText = note.note;
-            noteItemElement.appendChild(noteElement);
-
-            notesListElement.appendChild(noteItemElement);
-        });
-    }
-
-    document.querySelector("#manageNotes").addEventListener("click", () => window.open(`../notesmanage/?battery-id=${getBattery().id}`, "Manage NotesWindow", "width=600,height=300"));
 }
