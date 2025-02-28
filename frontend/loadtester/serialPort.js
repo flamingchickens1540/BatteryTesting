@@ -85,8 +85,9 @@
                         // make writer and reader available again
                         writer.releaseLock();
                         reader.releaseLock();
+                        
                         listen();
-                    }, 5000);
+                    }, 10000);
 
                     const { value, done } = await reader.read();
 
