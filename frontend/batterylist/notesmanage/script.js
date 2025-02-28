@@ -2,6 +2,8 @@
     const battery = opener.getBattery();
     let noteId;
 
+    document.querySelector("title").innerText = battery.name + " Notes Manage"
+
     document.querySelector("#batteryName").innerText = battery.name + " Battery\nNotes Manage";
 
     function copyNotesList() {
