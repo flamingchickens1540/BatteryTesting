@@ -25,5 +25,5 @@
         });
     }
 
-    document.querySelector("#manageNotes").addEventListener("click", () => window.open(`../notesmanage/?battery-id=${getBattery().id}`, "Manage NotesWindow", "width=600,height=300"));
+    document.querySelector("#manageNotes").addEventListener("click", () => window.open(`notesmanage/?battery-id=${getBattery().id}`, "Manage NotesWindow", "width=600,height=300"));
 }
