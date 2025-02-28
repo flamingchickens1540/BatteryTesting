@@ -12,4 +12,5 @@
     overflow: hidden;
     width: 50vw;
     min-height: 25vh;
+    max-height: 999999px
 }
