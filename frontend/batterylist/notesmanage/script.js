@@ -47,6 +47,8 @@
 
         await opener.showNotes();
         copyNotesList();
+
+        document.querySelector("#addNoteText").value = "";
     }
 
     copyNotesList();
