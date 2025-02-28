@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const testQueries = require("./queries/testQueries.js");
 const batteryQueries = require("./queries/batteryQueries.js");
 
