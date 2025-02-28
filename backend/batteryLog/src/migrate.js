@@ -14,7 +14,9 @@ const batteryQueries = require("./queries/batteryQueries.js");
             await testQueries.setTestCapacity(test.startTime, testQueries.computeCapacity(timestamps));
         }
 
-        if(tests.length)
-            await batteryQueries.setBatteryCapacity(battery.id, tests.reduce((a, b) => a.startTime > b.startTime ? a : b));
+        if(tests.length) {
+            const latestTest = tests.reduce((a, b) => a.startTime > b.startTime ? a : b);
+            await batteryQueries.setBatteryCapacity(battery.id, latestTest.capacity, latestTest.startVoltage);
+        }
     }
 })();
