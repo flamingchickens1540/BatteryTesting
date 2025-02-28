@@ -49,6 +49,7 @@ async function logTest(batteryId, time, name, startVoltage, success, timestamps)
         const energy = (lastWatt + watt) / 2 * (timestamp.time - lastTime);
 
         lastTime = timestamp.time;
+        lastWatt = watt;
 
         return energy;
     }).reduce((total, watt) => total + watt) / 60 / 60 / 1000;
