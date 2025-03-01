@@ -12,6 +12,6 @@
     overflow: hidden;
     width: 50vw;
     min-height: 25vh;
-    font-size-adjust: none;
+    max-height: 999999px;
     font-size: 3vmin;
 }
