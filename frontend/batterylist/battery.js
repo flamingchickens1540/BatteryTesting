@@ -9,7 +9,7 @@ import { showNotes } from "./notes.js";
 
 let _batteryId;
 
-export function fillBatteryList() {
+function fillBatteryList() {
     const batteryListElement = document.querySelector("#batteryListScreen .list");
 
     while(batteryListElement.children[0])
