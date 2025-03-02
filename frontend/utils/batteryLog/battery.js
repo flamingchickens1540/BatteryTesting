@@ -1,4 +1,4 @@
-import { loadTests } from "./test";
+import { loadTests } from "./test.js";
 
 let _batteryList = {};
 

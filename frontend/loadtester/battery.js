@@ -1,5 +1,5 @@
-import { batteryInit, getBatteries, getBattery, selectBattery } from "../utils/batteryLog/battery";
-import { getTests, selectTest, loadTest,  } from "../utils/batteryLog/test";
+import { batteryInit, getBatteries, getBattery, selectBattery } from "../utils/batteryLog/battery.js";
+import { getTests, selectTest, loadTest,  } from "../utils/batteryLog/test.js";
 
 (async function() {
     // waiting for battery initialization

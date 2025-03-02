@@ -1,4 +1,4 @@
-import { getBattery, addBattery, removeBattery } from "./battery";
+import { getBattery, addBattery, removeBattery } from "./battery.js";
 
 export function deleteBatteryProfile() {
     const batteryId = getBattery().id;
