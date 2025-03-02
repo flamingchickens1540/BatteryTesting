@@ -1,3 +1,6 @@
+import { batteryInit, getBatteries, getBattery, selectBattery } from "../utils/batteryLog/battery";
+import { getTests, selectTest, loadTest,  } from "../utils/batteryLog/test";
+
 (async function() {
     // waiting for battery initialization
     await batteryInit;
