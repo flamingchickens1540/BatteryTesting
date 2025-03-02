@@ -1,42 +1,42 @@
-{
-    let _tests;
-    let _loadedTests;
+import { getBattery } from "./battery";
 
-    let _currentTestId;
+let _tests;
+let _loadedTests;
 
-    function loadTests() {
-        _tests = {};
-        _loadedTests = {};
+let _currentTestId;
 
-        return fetch(`/BatteryTestingAPI/battery/tests/?battery-id=${getBattery().id}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
-        .then(res => res.json())
-        .then(res => res.tests.forEach(test => _tests[test.startTime] = test));
-    }
+export function loadTests() {
+    _tests = {};
+    _loadedTests = {};
 
-    function getTests() {
-        return Object.values(_tests);
-    }
+    return fetch(`/BatteryTestingAPI/battery/tests/?battery-id=${getBattery().id}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
+    .then(res => res.json())
+    .then(res => res.tests.forEach(test => _tests[test.startTime] = test));
+}
 
-    function selectTest(testId) {
-        _currentTestId = testId;
-    }
+export function getTests() {
+    return Object.values(_tests);
+}
 
-    function loadTest() {
-        const testId = _currentTestId;
+export function selectTest(testId) {
+    _currentTestId = testId;
+}
 
-        if(isTestLoaded())
-            return _loadedTests[testId];
+export function loadTest() {
+    const testId = _currentTestId;
 
-        return fetch(`/BatteryTestingAPI/test/?test-id=${testId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
-        .then(res => res.json())
-        .then(test => _loadedTests[testId] = test);
-    }
+    if(isTestLoaded())
+        return _loadedTests[testId];
 
-    function getTest() {
-        return _loadedTests[_currentTestId] ?? _tests[_currentTestId];
-    }
+    return fetch(`/BatteryTestingAPI/test/?test-id=${testId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
+    .then(res => res.json())
+    .then(test => _loadedTests[testId] = test);
+}
 
-    function isTestLoaded() {
-        return !!_loadedTests[_currentTestId];
-    }
+export function getTest() {
+    return _loadedTests[_currentTestId] ?? _tests[_currentTestId];
+}
+
+export function isTestLoaded() {
+    return !!_loadedTests[_currentTestId];
 }

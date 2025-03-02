@@ -1,54 +1,52 @@
-{
-    let _batteryList = {};
+import { loadTests } from "./test";
 
-    let _loadedBatteries = {};
+let _batteryList = {};
 
-    let _currentBatteryId;
+let _loadedBatteries = {};
 
-    var batteryInit = (async function() {
-        return fetch("/BatteryTestingAPI/battery/all", {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
-        .then(res => res.json())
-        .then(res => res.batteries.forEach(battery => _batteryList[battery.id] = battery));
-    })();
+let _currentBatteryId;
 
-    function getBatteries() {
-        return Object.values(_batteryList);
-    }
-    
-    function addBattery(battery) {
-        _batteryList[battery.name] = battery;
-    }
+export const batteryInit = (async function() {
+    return fetch("/BatteryTestingAPI/battery/all", {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
+    .then(res => res.json())
+    .then(res => res.batteries.forEach(battery => _batteryList[battery.id] = battery));
+})();
 
-    function removeBattery(batteryId) {
-        delete _batteryList[batteryId];
-        delete _loadedBatteries[batteryId];
-    }
+export function getBatteries() {
+    return Object.values(_batteryList);
+}
 
-    function selectBattery(batteryId) {
-        _currentBatteryId = batteryId;
+export function addBattery(battery) {
+    _batteryList[battery.name] = battery;
+}
 
-        if(typeof loadTests == "function")
-            return loadTests();
-    }
+export function removeBattery(batteryId) {
+    delete _batteryList[batteryId];
+    delete _loadedBatteries[batteryId];
+}
 
-    function loadBattery() {
-        const batteryId = _currentBatteryId;
+export function selectBattery(batteryId) {
+    _currentBatteryId = batteryId;
 
-        if(isBatteryLoaded())
-            return _loadedBatteries[batteryId];
+    if(typeof loadTests == "function")
+        return loadTests();
+}
 
-        return fetch(`/BatteryTestingAPI/battery/?battery-id=${batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
-        .then(res => res.json())
-        .then(res => _loadedBatteries[batteryId] = res);
-    }
+export function loadBattery() {
+    const batteryId = _currentBatteryId;
 
-    function getBattery() {
-        return _loadedBatteries[_currentBatteryId] ?? _batteryList[_currentBatteryId];
-    }
+    if(isBatteryLoaded())
+        return _loadedBatteries[batteryId];
 
-    function isBatteryLoaded() {
-        return !!_loadedBatteries[_currentBatteryId];
-    }
+    return fetch(`/BatteryTestingAPI/battery/?battery-id=${batteryId}`, {method:"GET", mode:"cors", headers: {'Content-Type': 'application/json'}})
+    .then(res => res.json())
+    .then(res => _loadedBatteries[batteryId] = res);
+}
 
-    
+export function getBattery() {
+    return _loadedBatteries[_currentBatteryId] ?? _batteryList[_currentBatteryId];
+}
+
+export function isBatteryLoaded() {
+    return !!_loadedBatteries[_currentBatteryId];
 }
