@@ -1,9 +1,6 @@
-import { getBattery, selectBattery } from "../../utils/batteryLog/battery.js";
 import { removeNote, createNote } from "../../utils/batteryLog/notesManagement.js";
-import { getNotes } from "../../utils/batteryLog/notes.js";
-import { showNotes } from "../notes.js";
 
-const battery = getBattery();
+const battery = opener.getBattery();
 let noteId;
 
 document.querySelector("title").innerText = battery.name + " Notes Manage"
@@ -28,9 +25,9 @@ function copyNotesList() {
 async function deleteNote() {
     await removeNote(noteId);
 
-    delete getNotes()[noteId];
+    delete opener.getNotes()[noteId];
 
-    await showNotes();
+    await opener.showNotes();
     copyNotesList();
 }
 
@@ -43,19 +40,19 @@ async function addNote() {
 
     await createNote(battery.id, note, time);
 
-    const tempId = getBattery().id;
+    const tempId = opener.getBattery().id;
 
-    selectBattery(battery.id);
+    opener.selectBattery(battery.id);
 
-    getNotes()[time] = {
+    opener.getNotes()[time] = {
         batteryId : battery.id,
         time,
         note
     };
 
-    selectBattery(tempId);
+    opener.selectBattery(tempId);
 
-    await showNotes();
+    await opener.showNotes();
     copyNotesList();
 
     document.querySelector("#addNoteText").value = "";
