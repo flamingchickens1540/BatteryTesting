@@ -3,7 +3,7 @@ const database = require("../database.js");
 let teams;
 
 async function init() {
-    database.execute("SELECT * FROM Teams;", [], result => teams = result);
+    teams = await database.execute("SELECT * FROM Teams;", [], result => result);
 }
 
 function getTeams() {
