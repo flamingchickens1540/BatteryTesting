@@ -1,5 +1,5 @@
-import { sendSerialMessage } from "./serialPort";
-import { getLoadTestingConfig } from "./configs";
+import { sendSerialMessage } from "./serialPort.js";
+import { getLoadTestingConfig } from "./configs.js";
 
 /**
  * set configuration for the test

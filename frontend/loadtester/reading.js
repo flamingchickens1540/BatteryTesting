@@ -1,4 +1,4 @@
-import { requestSerialMessage } from "./serialPort";
+import { requestSerialMessage } from "./serialPort.js";
 
 // Cooldown between reads
 export const READING_INTERVAL_MILLIS = 10;

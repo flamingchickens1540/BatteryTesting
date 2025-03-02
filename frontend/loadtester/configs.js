@@ -7,7 +7,7 @@ export const MODES = ["CC", "CV", "CR", "CP"];
  * root path to the configs
  * @type {readonly string}
  */
-export const LOAD_TESTING_CONFIG_ITEM = "loadTestingConfig"
+const LOAD_TESTING_CONFIG_ITEM = "loadTestingConfig"
 
 /**
  * 

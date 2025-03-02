@@ -1,4 +1,4 @@
-import { setLoadTestingConfig, getLoadTestingConfig } from "./configs";
+import { setLoadTestingConfig, getLoadTestingConfig } from "./configs.js";
 
 const getConfig = function() {
     document.querySelector("#config #value .input").value = getLoadTestingConfig(document.querySelector("#config #path .input").value)
