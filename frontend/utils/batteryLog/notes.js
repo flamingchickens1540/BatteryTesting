@@ -1,4 +1,4 @@
-import { getBattery } from "./battery";
+import { getBattery } from "./battery.js";
 
 let _notes = {};
 
