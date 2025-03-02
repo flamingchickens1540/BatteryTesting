@@ -1,7 +1,7 @@
 const dbBatteryQueries = require("./queries/batteryQueries.js");
 const dbTestsQueries = require("./queries/testQueries.js");
 const dbRecordQueries = require("./queries/recordQueries.js");
-const teams = require("./queries/teams.js")();
+const getTeams = require("./queries/teams.js");
 
 module.exports = {
     get : {
@@ -12,7 +12,7 @@ module.exports = {
         "/test" : req => dbTestsQueries.getTest(req.query["test-id"]),
         "/test/timestamps" : req => dbTestsQueries.getTimestamps(req.query["test-id"]),
         "/battery/notes" : req => dbRecordQueries.getNotesFromBattery(req.query["battery-id"]),
-        "/teams" : () => JSON.stringify(teams)
+        "/teams" : () => JSON.stringify(getTeams())
     },
     put : {
         "/battery" : req => {
