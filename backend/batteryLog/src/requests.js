@@ -1,6 +1,7 @@
 const dbBatteryQueries = require("./queries/batteryQueries.js");
 const dbTestsQueries = require("./queries/testQueries.js");
 const dbRecordQueries = require("./queries/recordQueries.js");
+const teams = require("./queries/teams.js")();
 
 module.exports = {
     get : {
@@ -37,6 +38,7 @@ module.exports = {
             
             return await dbRecordQueries.recordNote(req.query["battery-id"], body.time, body.note);
         },
-        "/note/remove" : req => dbRecordQueries.removeNote(req.query["note-id"])
+        "/note/remove" : req => dbRecordQueries.removeNote(req.query["note-id"]),
+        "/teams" : () => teams
     }
 }
