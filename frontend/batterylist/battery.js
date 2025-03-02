@@ -9,7 +9,7 @@ import { showNotes } from "./notes";
 
 let _batteryId;
 
-const fillBatteryList = function() {
+function fillBatteryList() {
     const batteryListElement = document.querySelector("#batteryListScreen .list");
 
     while(batteryListElement.children[0])
@@ -45,7 +45,7 @@ const fillBatteryList = function() {
     });
 }
 
-const switchBattery = async function(batteryId) {
+async function switchBattery(batteryId) {
     if(_batteryId == batteryId)
         return;
 
