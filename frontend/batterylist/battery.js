@@ -1,6 +1,8 @@
 import { batteryInit, getBatteries, selectBattery, loadBattery } from "../utils/batteryLog/battery";
 import { showNotes } from "./notes";
 
+console.log("hi")
+
 (async function() {
     await batteryInit;
 
