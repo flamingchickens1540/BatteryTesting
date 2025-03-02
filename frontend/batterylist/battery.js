@@ -1,59 +1,60 @@
-{
-    (async function() {
-        await batteryInit;
+import { batteryInit, getBatteries, selectBattery, loadBattery } from "../utils/batteryLog/battery";
+import { showNotes } from "./notes";
 
-        fillBatteryList();
-    })();
+(async function() {
+    await batteryInit;
 
-    let _batteryId;
+    fillBatteryList();
+})();
 
-    const fillBatteryList = function() {
-        const batteryListElement = document.querySelector("#batteryListScreen .list");
+let _batteryId;
 
-        while(batteryListElement.children[0])
-            batteryListElement.removeChild(batteryListElement[0]);
+const fillBatteryList = function() {
+    const batteryListElement = document.querySelector("#batteryListScreen .list");
 
-        getBatteries().forEach(battery => {
-            const batteryItemElement = document.createElement("div");
+    while(batteryListElement.children[0])
+        batteryListElement.removeChild(batteryListElement[0]);
 
-            batteryItemElement.className = "item";
-            batteryItemElement.batteryId = battery.id;
+    getBatteries().forEach(battery => {
+        const batteryItemElement = document.createElement("div");
 
-            const nameElement = document.createElement("span");
-            nameElement.innerText = battery.name;
-            batteryItemElement.appendChild(nameElement);
+        batteryItemElement.className = "item";
+        batteryItemElement.batteryId = battery.id;
 
-            const startVoltageElement = document.createElement("span");
-            startVoltageElement.innerText = battery.startVoltage;
-            batteryItemElement.appendChild(startVoltageElement);
+        const nameElement = document.createElement("span");
+        nameElement.innerText = battery.name;
+        batteryItemElement.appendChild(nameElement);
 
-            const capacityElement = document.createElement("span");
-            if(battery.capacity != null)
-                capacityElement.innerText = battery.capacity.toLocaleString(2);
-            batteryItemElement.appendChild(capacityElement);
+        const startVoltageElement = document.createElement("span");
+        startVoltageElement.innerText = battery.startVoltage;
+        batteryItemElement.appendChild(startVoltageElement);
 
-            batteryItemElement.addEventListener("click", () => {
-                batteryListElement.childNodes.forEach(batteryItem => batteryItem.className = "item");
-                batteryItemElement.className = "item itemSelected";
+        const capacityElement = document.createElement("span");
+        if(battery.capacity != null)
+            capacityElement.innerText = battery.capacity.toLocaleString(2);
+        batteryItemElement.appendChild(capacityElement);
 
-                switchBattery(batteryItemElement.batteryId);
-            });
+        batteryItemElement.addEventListener("click", () => {
+            batteryListElement.childNodes.forEach(batteryItem => batteryItem.className = "item");
+            batteryItemElement.className = "item itemSelected";
 
-            batteryListElement.appendChild(batteryItemElement);
+            switchBattery(batteryItemElement.batteryId);
         });
-    }
 
-    const switchBattery = async function(batteryId) {
-        if(_batteryId == batteryId)
-            return;
+        batteryListElement.appendChild(batteryItemElement);
+    });
+}
 
-        selectBattery(_batteryId = batteryId);
+const switchBattery = async function(batteryId) {
+    if(_batteryId == batteryId)
+        return;
 
-        const battery = await loadBattery();
+    selectBattery(_batteryId = batteryId);
 
-        document.querySelector("#batteryDescription .description").innerText = battery.description;
-        document.querySelector("#batteryDate .date").innerText = new Date(battery.date).toLocaleDateString("en-us");
+    const battery = await loadBattery();
 
-        showNotes();
-    }
+    document.querySelector("#batteryDescription .description").innerText = battery.description;
+    document.querySelector("#batteryDate .date").innerText = new Date(battery.date).toLocaleDateString("en-us");
+
+    showNotes();
 }

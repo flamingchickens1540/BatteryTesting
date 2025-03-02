@@ -1,30 +1,31 @@
-{
-    var showNotes = async function() {
-        const notes = Object.values(await loadNotes());
+import { getBattery } from "../utils/batteryLog/battery.js";
+import { loadNotes } from "../utils/batteryLog/notes.js";
 
-        const notesListElement = document.querySelector("#notesListScreen");
+export async function showNotes() {
+    const notes = Object.values(await loadNotes());
 
-        while(notesListElement.children[0])
-            notesListElement.removeChild(notesListElement.children[0]);
+    const notesListElement = document.querySelector("#notesListScreen");
 
-        notes.forEach(note => {
-            const noteItemElement = document.createElement("div");
+    while(notesListElement.children[0])
+        notesListElement.removeChild(notesListElement.children[0]);
 
-            noteItemElement.className = "item";
-            noteItemElement.setAttribute("noteTime", note.time);
-            noteItemElement.note = note.note;
+    notes.forEach(note => {
+        const noteItemElement = document.createElement("div");
 
-            const dateElement = document.createElement("p");
+        noteItemElement.className = "item";
+        noteItemElement.setAttribute("noteTime", note.time);
+        noteItemElement.note = note.note;
 
-            dateElement.innerHTML = new Date(note.time).toLocaleString("en-US") + "<br>" + note.note;
-            noteItemElement.appendChild(dateElement);
+        const dateElement = document.createElement("p");
 
-            notesListElement.appendChild(noteItemElement);
-        });
-    }
+        dateElement.innerHTML = new Date(note.time).toLocaleString("en-US") + "<br>" + note.note;
+        noteItemElement.appendChild(dateElement);
 
-    document.querySelector("#manageNotes").addEventListener("click", () => {
-        if(getBattery())
-            window.open(`notesmanage/`);
+        notesListElement.appendChild(noteItemElement);
     });
 }
+
+document.querySelector("#manageNotes").addEventListener("click", () => {
+    if(getBattery())
+        window.open(`notesmanage/`);
+});

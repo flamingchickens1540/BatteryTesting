@@ -1,70 +1,73 @@
-{
-    const battery = opener.getBattery();
-    let noteId;
+import { getBattery, selectBattery } from "../../utils/batteryLog/battery.js";
+import { removeNote, createNote } from "../../utils/batteryLog/notesManagement.js";
+import { getNotes } from "../../utils/batteryLog/notes.js";
+import { showNotes } from "../notes.js";
 
-    document.querySelector("title").innerText = battery.name + " Notes Manage"
+const battery = getBattery();
+let noteId;
 
-    document.querySelector("#batteryName").innerText = battery.name + " Battery\nNotes Manage";
+document.querySelector("title").innerText = battery.name + " Notes Manage"
 
-    function copyNotesList() {
-        if(document.querySelector("#notesListScreen"))
-            document.querySelector("#notesListScreen").remove();
+document.querySelector("#batteryName").innerText = battery.name + " Battery\nNotes Manage";
 
-        document.querySelector("#notesContainer").appendChild(opener.document.querySelector("#notesListScreen").cloneNode(true));
+function copyNotesList() {
+    if(document.querySelector("#notesListScreen"))
+        document.querySelector("#notesListScreen").remove();
 
-        const noteItems = document.querySelectorAll("#notesListScreen div");
-        noteItems.forEach(note => note.addEventListener("click", () => {
-            noteItems.forEach(node => node.className = "item");
-            note.className = "selected item";
+    document.querySelector("#notesContainer").appendChild(opener.document.querySelector("#notesListScreen").cloneNode(true));
 
-            noteId = note.getAttribute("noteTime");
-        }));
-    }
+    const noteItems = document.querySelectorAll("#notesListScreen div");
+    noteItems.forEach(note => note.addEventListener("click", () => {
+        noteItems.forEach(node => node.className = "item");
+        note.className = "selected item";
 
-    async function deleteNote() {
-        await removeNote(noteId);
+        noteId = note.getAttribute("noteTime");
+    }));
+}
 
-        delete opener.getNotes()[noteId];
+async function deleteNote() {
+    await removeNote(noteId);
 
-        await opener.showNotes();
-        copyNotesList();
-    }
+    delete getNotes()[noteId];
 
-    async function addNote() {
-        const time = Date.now();
-        const note = document.querySelector("#addNoteText").value;
+    await showNotes();
+    copyNotesList();
+}
 
-        if(note == "")
-            return;
+async function addNote() {
+    const time = Date.now();
+    const note = document.querySelector("#addNoteText").value;
 
-        await createNote(battery.id, note, time);
+    if(note == "")
+        return;
 
-        const tempId = opener.getBattery().id;
+    await createNote(battery.id, note, time);
 
-        opener.selectBattery(battery.id);
+    const tempId = getBattery().id;
 
-        opener.getNotes()[time] = {
-            batteryId : battery.id,
-            time,
-            note
-        };
+    selectBattery(battery.id);
 
-        opener.selectBattery(tempId);
+    getNotes()[time] = {
+        batteryId : battery.id,
+        time,
+        note
+    };
 
-        await opener.showNotes();
-        copyNotesList();
+    selectBattery(tempId);
 
-        document.querySelector("#addNoteText").value = "";
-    }
-
+    await showNotes();
     copyNotesList();
 
-    document.querySelector("#removeNote").addEventListener("click", deleteNote);
-
-    document.querySelector("#addNoteText").addEventListener('input', function() {
-        this.style.height = 'auto';
-        this.style.height = this.scrollHeight + 'px';
-    }, false);
-
-    document.querySelector("#addNote").addEventListener("click", addNote);
+    document.querySelector("#addNoteText").value = "";
 }
+
+copyNotesList();
+
+document.querySelector("#removeNote").addEventListener("click", deleteNote);
+
+document.querySelector("#addNoteText").addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = this.scrollHeight + 'px';
+}, false);
+
+document.querySelector("#addNote").addEventListener("click", addNote);
