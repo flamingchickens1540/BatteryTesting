@@ -1,5 +1,5 @@
-import { batteryInit, getBatteries, selectBattery, loadBattery } from "../utils/batteryLog/battery";
-import { showNotes } from "./notes";
+import { batteryInit, getBatteries, selectBattery, loadBattery } from "../utils/batteryLog/battery.js";
+import { showNotes } from "./notes.js";
 
 (async function() {
     await batteryInit;
