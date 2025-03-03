@@ -14,7 +14,7 @@ module.exports = {
         "/test/timestamps" : req => dbTestsQueries.getTimestamps(req.query["test-id"]),
         "/battery/notes" : req => dbRecordQueries.getNotesFromBattery(req.query["battery-id"]),
         "/teams" : () => JSON.stringify(teams.getTeams()),
-        "/event/current" : req => matches.getCurrentEvent(req.query["team-number"]),
+        "/event/current" : req => matches.getCurrentEventKey(req.query["team-number"]),
         "/events" : req => matches.getEvents(req.query["team-number"]), // Might be deprecated later on
         "/event" : req => matches.getEventKeyFromTime(req.query["team-number"], req.query["time"])
     },
