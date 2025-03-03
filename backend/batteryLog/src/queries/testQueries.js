@@ -56,13 +56,15 @@ function computeCapacity(timestamps) {
         lastEst = est;
     }
 
+    console.log(coefficients);
+
     // get area under curve
     const lastTime = timestamps[timestamps.length-1].time;
     let result = 0;
     for(let degree = 0; degree <= DEGREES; degree++)
         result += (coefficients[degree] * Math.pow(lastTime, degree + 1)) / (degree + 1);
 
-    console.log(result / 60 / 60 / 1000)
+    // console.log(result / 60 / 60 / 1000)
 
     return result / 60 / 60 / 1000;
     // let lastTime = 0;
