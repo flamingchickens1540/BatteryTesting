@@ -62,6 +62,8 @@ function computeCapacity(timestamps) {
     for(let degree = 0; degree <= DEGREES; degree++)
         result += (coefficients[degree] * Math.pow(lastTime, degree + 1)) / (degree + 1);
 
+    console.log(result / 60 / 60 / 1000)
+
     return result / 60 / 60 / 1000;
     // let lastTime = 0;
     // let lastWatt = 0;
