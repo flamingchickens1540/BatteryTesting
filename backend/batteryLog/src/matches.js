@@ -22,7 +22,7 @@ function getEvents(teamNumber) {
 }
 
 function getEventFromTime(teamNumber, time) {
-    for(const event of getEvents()[teamNumber]) {
+    for(const event of getEvents(teamNumber)) {
         const startDate = new Date(event.start_date).getTime();
         const endDate = new Date(event.end_date).getTime() + (1000 * 60 * 60 * 24);
         if(startDate <= time && endDate >= time)
