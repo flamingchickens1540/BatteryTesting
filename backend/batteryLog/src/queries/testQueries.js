@@ -46,7 +46,7 @@ for(let degree = 0; degree <= DEGREES; degree++)
 function computeCapacity(timestamps) {
     const model = createModel();
 
-    model.fit(timestamps.map(timestamp => [timestamp.time, timestamp.voltage * timestamp.current]), ESTIMATION_DEGREES);
+    model.fit(timestamps.map(timestamp => [timestamp.time, timestamp.voltage * timestamp.current]), estimation_degrees);
 
     // get the coefficients
     const coefficients = [];
