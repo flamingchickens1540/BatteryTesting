@@ -14,8 +14,8 @@ module.exports = {
         "/test/timestamps" : req => dbTestsQueries.getTimestamps(req.query["test-id"]),
         "/battery/notes" : req => dbRecordQueries.getNotesFromBattery(req.query["battery-id"]),
         "/teams" : () => JSON.stringify(teams.getTeams()),
-        "/events/current" : req => matches.getCurrentEvent(req.query("team-number")),
-        "/events" : req => matches.getEvents(req.query("team-number"))
+        "/events/current" : req => matches.getCurrentEvent(req.query["team-number"]),
+        "/events" : req => matches.getEvents(req.query["team-number"])
     },
     put : {
         "/battery" : req => {
