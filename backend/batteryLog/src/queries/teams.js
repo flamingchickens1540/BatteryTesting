@@ -2,15 +2,16 @@ const database = require("../database.js");
 
 let teams;
 
-async function init() {
-    teams = await database.execute("SELECT * FROM Teams;", [], result => result);
-}
-
 function getTeams() {
     return teams;
 }
 
-init();
+const init = (async function() {
+    teams = await database.execute("SELECT * FROM Teams;", [], result => result);
+})();
 
 
-module.exports = getTeams;
+module.exports = {
+    getTeams,
+    init
+};
