@@ -1,7 +1,7 @@
-const dbBatteryQueries = require("./queries/batteryQueries.js");
-const dbTestsQueries = require("./queries/testQueries.js");
-const dbRecordQueries = require("./queries/recordQueries.js");
-const teams = require("./queries/teams.js");
+const dbBatteryQueries = require("./dbqueries/batteryQueries.js");
+const dbTestsQueries = require("./dbqueries/testQueries.js");
+const dbRecordQueries = require("./dbqueries/recordQueries.js");
+const teams = require("./dbqueries/teams.js");
 const matches = require("./matches.js");
 
 module.exports = {

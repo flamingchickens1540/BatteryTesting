@@ -1,7 +1,7 @@
 require("dotenv").config();
 
-const testQueries = require("./queries/testQueries.js");
-const batteryQueries = require("./queries/batteryQueries.js");
+const testQueries = require("./dbqueries/testQueries.js");
+const batteryQueries = require("./dbqueries/batteryQueries.js");
 
 (async function() {    
     for(const battery of (await batteryQueries.getBatteries()).batteries) {

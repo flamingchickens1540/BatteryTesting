@@ -1,4 +1,4 @@
-const teams = require("./queries/teams.js");
+const teams = require("./dbqueries/teams.js");
 
 const MISC_EVENT_KEY = "misc";
 
