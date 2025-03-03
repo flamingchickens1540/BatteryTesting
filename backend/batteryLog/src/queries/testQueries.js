@@ -1,4 +1,5 @@
 const database = require("../database.js");
+const { createModel } = require('polynomial-regression');
 
 const TESTS_TABLE = "Tests";
 const TIMESTAMPS_TABLE = "Timestamps";
@@ -37,6 +38,12 @@ function insertTimestamp(testId, time, voltage, current) {
 }
 
 function computeCapacity(timestamps) {
+    const model = createModel();
+
+    model.fit(timestamps.map(timestamp => [timestamp.time, timestamp.voltage * timestamp.current]), [0, 1, 2, 3]);
+
+    console.log(model.expressions());
+
     let lastTime = 0;
     let lastWatt = 0;
     return timestamps.map(timestamp => {
