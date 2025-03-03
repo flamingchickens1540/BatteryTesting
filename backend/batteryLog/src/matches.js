@@ -1,4 +1,4 @@
-const fetch = import("node-fetch");
+let fetch = import("node-fetch");
 const teams = require("./queries/teams.js");
 
 const MISC_EVENT_KEY = "misc";
@@ -7,6 +7,7 @@ const MISC_EVENT_KEY = "misc";
 let teamEvents = {};
 
 (async function() {
+    fetch = await fetch;
     await teams.init;
 
     for(const team of teams.getTeams())
