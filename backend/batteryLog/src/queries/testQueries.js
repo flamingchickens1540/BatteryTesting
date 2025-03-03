@@ -37,25 +37,44 @@ function insertTimestamp(testId, time, voltage, current) {
     return database.execute(`INSERT INTO ${TIMESTAMPS_TABLE} (testId, time, voltage, current) VALUES(?, ?, ?, ?)`, [testId, time, voltage, current], () => time);
 }
 
+// MUST BE SORTED IN ACENDING ORDER
+const DEGREES = 3;
+const estimation_degrees = [];
+for(let degree = 0; degree <= DEGREES; degree++)
+    estimation_degrees.push(degree);
+
 function computeCapacity(timestamps) {
     const model = createModel();
 
-    model.fit(timestamps.map(timestamp => [timestamp.time, timestamp.voltage]), [3]);
+    model.fit(timestamps.map(timestamp => [timestamp.time, timestamp.voltage * timestamp.current]), ESTIMATION_DEGREES);
 
-    console.log(model.expressions());
+    // get the coefficients
+    const coefficients = [];
+    for(let degree = 0, lastEst = 0; degree <= DEGREES; degree++) {
+        const est = model.estimate(degree, 1);
+        coefficients.push(est - lastEst);
+        lastEst = est;
+    }
 
-    let lastTime = 0;
-    let lastWatt = 0;
-    return timestamps.map(timestamp => {
-        const watt = timestamp.current * timestamp.voltage;
+    // get area under curve
+    const lastTime = timestamps[timestamps.length-1].time;
+    let result = 0;
+    for(let degree = 0; degree <= DEGREES; degree++)
+        result += (coefficients[degree] * Math.pow(lastTime, degree + 1)) / (degree + 1);
+
+    return result / 60 / 60 / 1000;
+    // let lastTime = 0;
+    // let lastWatt = 0;
+    // return timestamps.map(timestamp => {
+    //     const watt = timestamp.current * timestamp.voltage;
         
-        const energy = (lastWatt + watt) / 2 * (timestamp.time - lastTime);
+    //     const energy = (lastWatt + watt) / 2 * (timestamp.time - lastTime);
 
-        lastTime = timestamp.time;
-        lastWatt = watt;
+    //     lastTime = timestamp.time;
+    //     lastWatt = watt;
 
-        return energy;
-    }).reduce((total, watt) => total + watt) / 60 / 60 / 1000;
+    //     return energy;
+    // }).reduce((total, watt) => total + watt) / 60 / 60 / 1000;
 }
 
 async function setTestCapacity(id, capacity) {
