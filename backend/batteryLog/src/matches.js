@@ -9,7 +9,9 @@ let teamEvents = {};
     await teams.init;
 
     for(const team of teams.getTeams())
-        teamEvents[team.teamNumber] = await requestGetTBA(`https://thebluealliance.com/api/v3/team/frc${team.teamNumber}/events/${new Date().getFullYear()}`);
+        teamEvents[team.teamNumber] = await (requestGetTBA(`https://thebluealliance.com/api/v3/team/frc${team.teamNumber}/events/${new Date().getFullYear()}`).then(res => res.json()));
+
+    console.log(teamEvents);
 })();
 
 function requestGetTBA(path) {
@@ -21,7 +23,7 @@ function requestGetTBA(path) {
                 "X-TBA-Auth-Key" : process.env.TBA_API_KEY
             }
         }
-    ).then(res => res.json());
+    );
 }
 
 function getEvents(teamNumber) {
