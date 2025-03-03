@@ -21,7 +21,7 @@ function requestGetTBA(path) {
                 "X-TBA-Auth-Key" : process.env.TBA_API_KEY
             }
         }
-    );
+    ).then(res => res.json());
 }
 
 function getEvents(teamNumber) {
