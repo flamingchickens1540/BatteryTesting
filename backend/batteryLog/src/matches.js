@@ -1,4 +1,4 @@
-import * as fetch from "node-fetch";
+const fetch = import("node-fetch");
 const teams = require("./queries/teams.js");
 
 const MISC_EVENT_KEY = "misc";
