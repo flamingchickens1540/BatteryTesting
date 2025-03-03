@@ -39,11 +39,16 @@ module.exports = {
                 body.startVoltage
             );
         },
-        "/note" : async req => {
+        "/note" : req => {
             const body = req.body;
             
-            return await dbRecordQueries.recordNote(req.query["battery-id"], body.time, body.note);
+            return dbRecordQueries.recordNote(req.query["battery-id"], body.time, body.note);
         },
-        "/note/remove" : req => dbRecordQueries.removeNote(req.query["note-id"])
+        "/note/remove" : req => dbRecordQueries.removeNote(req.query["note-id"]),
+        "/match/log" : req => {
+            const body = req.body;
+
+            return dbRecordQueries.recordMatch(req.query["match-key"], req.query["battery-id"], body.teamNumber, body.time, body.voltageHigh, body.voltageLow, body.note);
+        }
     }
 }
