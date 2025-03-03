@@ -3,7 +3,10 @@ const teams = require("./dbqueries/teams.js");
 const MISC_EVENT_KEY = "misc";
 
 // list of lists of jsons
-let teamEvents = {};
+const teamEvents = {};
+
+const currentTeamsEventKey = {};
+const currentTeamsEventMatches = {};
 
 function requestGetTBA(path) {
     return fetch(
@@ -32,8 +35,26 @@ function getEventFromTime(teamNumber, time) {
     return null;
 }
 
-function getCurrentEventKey(teamNumber) {
-    return getEventFromTime(teamNumber, Date.now())?.key ?? "misc";
+async function getCurrentEvent(teamNumber) {
+    const event = getEventFromTime(teamNumber, Date.now());
+    const key = event?.key ?? "misc";
+
+    if(key != "misc" && key != currentTeamsEventKey[teamNumber])
+        currentTeamsEventMatches[teamNumber] = await (requestGetTBA(`https://thebluealliance.com/api/v3/team/frc${teamNumber}/event/${key}/matches/key`).then(res => res.json()));
+
+    currentTeamsEventKey[teamNumber] = key;
+    return event;
+}
+
+async function getCurrentEventKey(teamNumber) {
+    return (await getCurrentEvent(teamNumber)).key;
+}
+
+async function getCurrentEventMatches() {
+    // Updates the event
+    await getCurrentEvent();
+
+    return currentTeamsEventMatches[teamNumber];
 }
 
 function getEventKeyFromTime(teamNumber, time) {
@@ -51,5 +72,6 @@ module.exports = {
     MISC_EVENT_KEY,
     getEvents,
     getCurrentEventKey,
-    getEventKeyFromTime
+    getEventKeyFromTime,
+    getCurrentEventMatches
 }
