@@ -40,7 +40,7 @@ function insertTimestamp(testId, time, voltage, current) {
 function computeCapacity(timestamps) {
     const model = createModel();
 
-    model.fit(timestamps.map(timestamp => [timestamp.time, timestamp.voltage * timestamp.current]), [0, 1, 2, 3]);
+    model.fit(timestamps.map(timestamp => [timestamp.time, timestamp.voltage]), [3]);
 
     console.log(model.expressions());
 
