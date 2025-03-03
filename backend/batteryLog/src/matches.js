@@ -5,15 +5,6 @@ const MISC_EVENT_KEY = "misc";
 // list of lists of jsons
 let teamEvents = {};
 
-(async function() {
-    await teams.init;
-
-    for(const team of teams.getTeams())
-        teamEvents[team.teamNumber] = await (requestGetTBA(`https://thebluealliance.com/api/v3/team/frc${team.teamNumber}/events/${new Date().getFullYear()}`).then(res => res.json()));
-
-    console.log(teamEvents);
-})();
-
 function requestGetTBA(path) {
     return fetch(
         path,
@@ -30,22 +21,35 @@ function getEvents(teamNumber) {
     return teamEvents[teamNumber];
 }
 
-function getCurrentEvent(teamNumber) {
-    // get time
-    const time = Date.now();
-
-    for(const event of teamEvents[teamNumber]) {
+function getEventFromTime(teamNumber, time) {
+    for(const event of getEvents()[teamNumber]) {
         const startDate = new Date(event.start_date).getTime();
-        const endDate = new Date(event.end_date).getTime();
+        const endDate = new Date(event.end_date).getTime() + (1000 * 60 * 60 * 24);
         if(startDate <= time && endDate >= time)
-            return event.key;
+            return event;
     }
 
-    return "misc";
+    return null;
 }
+
+function getCurrentEventKey(teamNumber) {
+    return getEventFromTime(teamNumber, Date.now()).key ?? "misc";
+}
+
+function getEventKeyFromTime(teamNumber, time) {
+    return getEventFromTime(teamNumber, time).key ?? "misc";
+}
+
+(async function() {
+    await teams.init;
+
+    for(const team of teams.getTeams())
+        teamEvents[team.teamNumber] = await (requestGetTBA(`https://thebluealliance.com/api/v3/team/frc${team.teamNumber}/events/${new Date().getFullYear()}`).then(res => res.json()));
+})();
 
 module.exports = {
     MISC_EVENT_KEY,
     getEvents,
-    getCurrentEvent
+    getCurrentEventKey,
+    getEventKeyFromTime
 }
