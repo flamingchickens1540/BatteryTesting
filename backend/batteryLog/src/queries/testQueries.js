@@ -46,7 +46,7 @@ for(let degree = 0; degree <= DEGREES; degree++)
 function computeCapacity(timestamps) {
     const model = createModel();
 
-    model.fit(timestamps.map(timestamp => [timestamp.time, timestamp.voltage * timestamp.current]), estimation_degrees);
+    model.fit(timestamps.map(timestamp => [timestamp.time / 60 / 60 / 1000, timestamp.voltage * timestamp.current]), estimation_degrees);
 
     // get the coefficients
     const coefficients = [];
@@ -56,17 +56,17 @@ function computeCapacity(timestamps) {
         lastEst = est;
     }
 
-    console.log(coefficients);
+    // console.log(coefficients);
 
     // get area under curve
-    const lastTime = timestamps[timestamps.length-1].time;
+    const lastTime = timestamps[timestamps.length-1].time / 60 / 60 / 1000;
     let result = 0;
     for(let degree = 0; degree <= DEGREES; degree++)
         result += (coefficients[degree] * Math.pow(lastTime, degree + 1)) / (degree + 1);
 
-    // console.log(result / 60 / 60 / 1000)
+    console.log(result)
 
-    return result / 60 / 60 / 1000;
+    return result;
     // let lastTime = 0;
     // let lastWatt = 0;
     // return timestamps.map(timestamp => {
