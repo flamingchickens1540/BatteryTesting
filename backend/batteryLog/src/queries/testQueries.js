@@ -64,9 +64,9 @@ function computeCapacity(timestamps) {
     for(let degree = 0; degree <= DEGREES; degree++)
         result += (coefficients[degree] * Math.pow(lastTime, degree + 1)) / (degree + 1);
 
-    console.log(result)
+    // console.log(result)
 
-    return result;
+    return isNaN(result) ? 0 : result;
     // let lastTime = 0;
     // let lastWatt = 0;
     // return timestamps.map(timestamp => {
