@@ -22,7 +22,6 @@ function getEvents(teamNumber) {
 }
 
 function getEventFromTime(teamNumber, time) {
-    console.log(getEvents(teamNumber))
     for(const event of getEvents(teamNumber)) {
         const startDate = new Date(event.start_date).getTime();
         const endDate = new Date(event.end_date).getTime() + (1000 * 60 * 60 * 24);
@@ -34,11 +33,11 @@ function getEventFromTime(teamNumber, time) {
 }
 
 function getCurrentEventKey(teamNumber) {
-    return getEventFromTime(teamNumber, Date.now()).key ?? "misc";
+    return getEventFromTime(teamNumber, Date.now())?.key ?? "misc";
 }
 
 function getEventKeyFromTime(teamNumber, time) {
-    return getEventFromTime(teamNumber, time).key ?? "misc";
+    return getEventFromTime(teamNumber, time)?.key ?? "misc";
 }
 
 (async function() {
