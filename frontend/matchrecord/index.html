@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Match Record</title>
+        <script type="module" src="../utils/battery.js"></script>
+
+        <script type="module" src="script.js"></script>
+    </head>
+    <body>
+        <!-- Team Number input -->
+        <label for="teamNumber">Team Number</label>
+        <select name="teamNumber" id="teamNumber"></select>
+
+        <!-- Match Key input -->
+        <label for="matchKey">Match Key</label>
+        <select name="matchKey" id="matchKey"></select>
+
+        <!-- Battery input -->
+        <label for="battery">Battery</label>
+        <select name="battery" id="battery"></select>
+
+        <!-- Voltage High + Voltage Low-->
+        <div class="voltage">
+            <div class="high">
+                <label for="voltageHigh">Voltage High</label>
+                <input id="voltageHigh" type="number" min="10.5" max="14">
+            </div>
+
+            <div class="low">
+                <label for="voltageLow">Voltage Low</label>
+                <input id="voltageLow" type="number" min="10.5" max="14">
+            </div>
+        </div>
+
+        <div class="notes">
+            <textarea id="noteText"></textarea>
+        </div>
+
+        <button id="submit">submit</button>
+    </body>
+</html>

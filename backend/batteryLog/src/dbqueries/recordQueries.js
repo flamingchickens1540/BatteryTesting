@@ -1,10 +1,9 @@
 const database = require("../database.js");
-const matchTBA = require("../matches.js");
 
-const NOTES_TABLE = "Battery_Notes";
-const MATCHES_TABLE = "Matches"
+// const NOTES_TABLE = "Battery_Notes";
+// const MATCHES_TABLE = "Matches"
 
-function getNotesFromBattery(batteryId) {
+function getBatteryNotes(batteryId) {
     return database.execute(`SELECT time, note FROM ${NOTES_TABLE} WHERE batteryId=?;`, [batteryId], result => ({notes : result, length : result.length}));
 }
 
@@ -16,14 +15,18 @@ function removeNote(noteId) {
     return database.execute(`DELETE FROM ${NOTES_TABLE} WHERE time=?;`, [noteId], () => noteId);
 }
 
-async function recordMatch(matchKey, batteryId, teamNumber, time, voltageHigh, voltageLow, note) {
+function getMatch(eventKey, matchKey, batteryId) {
+    return database.execute(`SELECT * FROM ${MATCHES_TABLE} WHERE eventKey=?, matchKey=?, batteryId=?;`, [eventKey, matchKey, batteryId], result => result[0]);
+}
+
+async function recordMatch(eventKey, matchKey, batteryId, teamNumber, time, voltageHigh, voltageLow, note) {
     await recordNote(batteryId, time, note);
 
-    return await database.execute(`INSERT INTO ${MATCHES_TABLE} (eventKey, matchKey, batteryId, time, teamNumber, voltageHigh, voltageLow) VALUES(?, ?, ?, ?, ?, ?, ?);`, [matchTBA.getCurrentEventKey(), matchKey, batteryId, time, teamNumber, voltageHigh, voltageLow], result => ({notes : result, length : result.length}))
+    return await database.execute(`INSERT INTO ${MATCHES_TABLE} (eventKey, matchKey, batteryId, time, teamNumber, voltageHigh, voltageLow) VALUES(?, ?, ?, ?, ?, ?, ?);`, [eventKey, matchKey, batteryId, time, teamNumber, voltageHigh, voltageLow], () => {});
 } 
 
 module.exports = {
-    getNotesFromBattery,
+    getBatteryNotes,
     recordNote,
     removeNote,
     recordMatch

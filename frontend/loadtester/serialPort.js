@@ -1,3 +1,6 @@
+import { getLoadTestingConfig } from "./configs.js";
+import { startReading } from "./reading.js";
+
 // serial port
 let _serialPort;
 

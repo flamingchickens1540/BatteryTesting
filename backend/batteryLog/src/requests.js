@@ -12,7 +12,7 @@ module.exports = {
         "/battery/tests" : req => dbTestsQueries.getBatteryTests(req.query["battery-id"]),
         "/test" : req => dbTestsQueries.getTest(req.query["test-id"]),
         "/test/timestamps" : req => dbTestsQueries.getTimestamps(req.query["test-id"]),
-        "/battery/notes" : req => dbRecordQueries.getNotesFromBattery(req.query["battery-id"]),
+        "/battery/notes" : req => dbRecordQueries.getBatteryNotes(req.query["battery-id"]),
         "/teams" : () => JSON.stringify(teams.getTeams()),
         "/event/current" : req => matches.getCurrentEventKey(req.query["team-number"]),
         "/event/current/matches" : req => matches.getCurrentEventMatches(req.query["team-number"]),
@@ -32,12 +32,15 @@ module.exports = {
         "/battery/remove" : req => dbBatteryQueries.removeBattery(req.query["battery-id"]),
         "/test/log" : async req => {
             const body = req.body;
-            
-            return await dbBatteryQueries.setBatteryCapacity(
-                req.query["battery-id"], 
-                await dbTestsQueries.logTest(req.query["battery-id"], body.time, body.name, body.startVoltage, body.success, body.timestamps),
-                body.startVoltage
-            );
+
+            const capacity = await dbTestsQueries.logTest(req.query["battery-id"], body.time, body.name, body.startVoltage, body.success, body.timestamps);
+
+            if(body.startVoltage > dbTestsQueries.MIN_START_VOLTAGE)
+                return await dbBatteryQueries.setBatteryCapacity(
+                    req.query["battery-id"], 
+                    capacity,
+                    body.startVoltage
+                );
         },
         "/note" : req => {
             const body = req.body;
@@ -48,7 +51,7 @@ module.exports = {
         "/match/log" : req => {
             const body = req.body;
 
-            return dbRecordQueries.recordMatch(req.query["match-key"], req.query["battery-id"], body.teamNumber, body.time, body.voltageHigh, body.voltageLow, body.note);
+            return dbRecordQueries.recordMatch(req.query["event-key"], req.query["match-key"], req.query["battery-id"], body.teamNumber, body.time, body.voltageHigh, body.voltageLow, body.note);
         }
     }
 }

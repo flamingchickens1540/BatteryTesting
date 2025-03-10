@@ -1,25 +1,24 @@
 const database = require("../database.js");
 
-const BATTERIES_TABLES = "Batteries";
+// const BATTERIES_TABLES = "Batteries";
 
 function getBattery(batteryId) {
     // if(batteryId == undefined)
     //     return Error("Invalid Data");
 
-    return database.execute(`SELECT * FROM ${BATTERIES_TABLES} WHERE id=?;`, [batteryId], result => result[0]);
+    return database.execute(`call getBattery(?);`, [batteryId], result => result[0][0]);
 }
 
 async function addBattery(name, date, description) {
     if(typeof name != "string" || typeof date != "string" || typeof description != "string")
         return Error("Invalid Data");
 
-    await database.execute(`INSERT INTO ${BATTERIES_TABLES} (name, date, description) VALUES(?, DATE(?), ?);`, [name, date, description], () => {});
-    return await await database.execute(`SELECT id, name, date, description FROM ${BATTERIES_TABLES} WHERE name=?;`, [name], result => result[0]);
+    return await getBattery(await database.execute(`call createBattery(?, ?, ?);`, [name, date, description], result => result[0][0].id));
 }
 
 async function editBattery(id, name, date, description) {
-    await database.execute(`UPDATE ${BATTERIES_TABLES} SET name = ?, date = DATE(?), description = ? WHERE id = ?`, [name, String(date), description, id], () => {});
-    return await database.execute(`SELECT id, name, date, description FROM ${BATTERIES_TABLES} WHERE name=?;`, [name], result => result[0]);
+    await database.execute(`call editBattery(?, ?, ?, ?)`, [id, name, String(date), description], () => {});
+    return await database.execute(`call getBattery(?);`, [id], result => result[0][0]);
 }
 
 // Might not work due to foreign keys
@@ -27,11 +26,11 @@ function removeBattery(id) {
     // if(id == undefined)
     //     return Error("Invalid Data");
 
-    return database.execute(`DELETE FROM ${BATTERIES_TABLES} WHERE id=?;`, [id], () => id);
+    return database.execute(`call deleteBattery(?);`, [id], () => id);
 }
 
 function getBatteries() {
-    return database.execute(`SELECT id, name, capacity, startVoltage, date FROM ${BATTERIES_TABLES};`, [], result => ({batteries : result, length : result.length}));
+    return database.execute(`call getBatteries();`, [], result => ({batteries : result[0], length : result[0].length}));
     // return database.query(`SELECT id, name, date FROM ${BATTERIES_TABLES};`, result => JSON.stringify({batteries : result, length : result.length}));
 }
 
@@ -45,7 +44,7 @@ function getBatteryDates() {
 }
 
 function setBatteryCapacity(id, capacity, startVoltage) {    
-    return database.execute(`UPDATE ${BATTERIES_TABLES} SET capacity = ?, startVoltage = ? WHERE id = ?`, [capacity, startVoltage, id], () => "Success");
+    return database.execute(`setCapacity(?, ?, ?);`, [id, capacity, startVoltage], () => "Success");
 }
 
 module.exports = {
