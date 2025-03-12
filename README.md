@@ -3,7 +3,7 @@ This repository is a battery testing app for team 1540. Using it, our team can s
 
 
 ## Code
-This app does not use any frameworks to run. All written code is purely made up of JavaScript, Node.JS, HTML, CSS, mySQL. The app is split into two directories: [frontend](../frontend/README.md) and [backend](../backend/README.md). The frontend contains all webpages and their functionality, while backend focuses server-related tasks. 
+This app does not use any frameworks to run. All written code is purely made up of JavaScript, Node.JS, HTML, CSS, mySQL. The app is split into two directories: [frontend](/frontend/README.md) and [backend](/backend/README.md). The frontend contains all webpages and their functionality, while backend focuses server-related tasks. 
 
 ## Run Code
 To start up the backend, use the following command:
