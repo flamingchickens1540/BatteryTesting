@@ -53,3 +53,29 @@ CREATE TABLE Battery_Notes (
 
     PRIMARY KEY (batteryId, time)
 );
+
+-- Create Teams table
+CREATE TABLE Teams (
+    teamNumber INT UNSIGNED NOT NULL,
+    name VARCHAR(63) NOT NULL,
+
+    PRIMARY KEY (teamNumber),
+    UNIQUE (name)
+);
+
+-- Create Match table
+CREATE TABLE Matches (
+    eventKey VARCHAR(31) NOT NULL,
+    matchKey VARCHAR(31) NOT NULL,
+    batteryId INT UNSIGNED NOT NULL,
+
+    teamNumber INT UNSIGNED NOT NULL,
+    time BIGINT UNSIGNED,
+
+    voltageHigh DOUBLE UNSIGNED NOT NULL,
+    voltageLow DOUBLE UNSIGNED NOT NULL,
+
+    PRIMARY KEY (eventKey, matchKey, batteryId),
+    FOREIGN KEY (teamNumber) REFERENCES Teams(teamNumber),
+    FOREIGN KEY (batteryId) REFERENCES Batteries(id),
+);

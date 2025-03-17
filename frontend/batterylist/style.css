@@ -1,11 +1,13 @@
 body {
-    font-size: 1.5em;
+    font-size: 3vmin;
     font-family: "Roboto";
+    margin: 0px;
 }
 
 section {
     border: 2px black solid;
     border-radius: 10px;
+    margin: 8px;
 }
 
 #batteryListScreen {
@@ -21,11 +23,25 @@ section {
 }
 
 #notesListScreen {
-    height: 50vh;
+    height: 25vh;
     overflow-y: scroll;
     border: 1px gray solid;
     border-radius: 10px;
     margin: 5px;
+}
+
+#notesListScreen div {
+    padding: 10px;
+}
+
+#notesListScreen .item p {
+    max-height: 9999px;
+}
+
+#notesListScreen .selected {
+    color: white;
+    background-color: blue;
+    
 }
 
 #batteryListScreen .list .item {
@@ -33,19 +49,20 @@ section {
     flex-direction: row; 
     justify-content: stretch;
     padding: 5px;
+    max-height: 99999px;
 }
 
 #batteryListScreen .list .itemSelected {
-    background-color: lime;
+    background-color: skyblue;
     color: white;
 }
 
 #batteryListScreen .list .item span {
-    width: 300px;
+    width: 20vw;
 }
 
-.batteryItem span {
-    width: 200px;
+#batteryListScreen .columnNames span {
+    width: 20vw;
 }
 
 #batteryListScreen .columnNames {
@@ -53,11 +70,21 @@ section {
     display: flex; 
     flex-direction: row; 
     justify-content: stretch;
+    padding: 5px;
 }
 
 #batteryDescription {
     border: 2px gray solid;
     border-radius: 10px;
     margin: 10px;
-    min-height: 40vh;
+    min-height: 200px;
+}
+
+#batteryDescription .description {
+    max-height: 999999px;
+}
+
+button {
+    font-size: inherit;
+    font-family: inherit;
 }

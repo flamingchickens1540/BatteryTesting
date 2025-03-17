@@ -1,0 +1,17 @@
+#notesListScreen {
+    height: 25vh;
+    overflow-y: scroll;
+    border: 1px gray solid;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+#addNoteText {
+    display: block;
+    resize: none;
+    overflow: hidden;
+    width: 50vw;
+    min-height: 25vh;
+    max-height: 999999px;
+    font-size: 3vmin;
+}
